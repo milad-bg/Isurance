@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Enums\" />
-    <Folder Include="Domain\Interfaces\AppService Interfaces\" />
-    <Folder Include="Domain\Interfaces\IUOW\" />
-    <Folder Include="Domain\Interfaces\Repository Interfaces\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Interfaces\AppService Interfaces\" />
+    <Folder Include="Interfaces\IUOW\" />
+    <Folder Include="Interfaces\Repository Interfaces\" />
   </ItemGroup>
 
 </Project>
