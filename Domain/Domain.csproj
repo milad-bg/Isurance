@@ -4,4 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Enums\" />
+    <Folder Include="Domain\Interfaces\AppService Interfaces\" />
+    <Folder Include="Domain\Interfaces\IUOW\" />
+    <Folder Include="Domain\Interfaces\Repository Interfaces\" />
+  </ItemGroup>
+
 </Project>
