@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.File
+namespace Domain.Interfaces.IRepository.Projects
 {
-    public class File
+    public interface ICityRepository
     {
     }
 }

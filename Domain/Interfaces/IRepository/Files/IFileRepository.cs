@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.Information
+namespace Domain.Interfaces.IRepository.Files
 {
-    public class AboutUs
+    public interface IFileRepository
     {
     }
 }

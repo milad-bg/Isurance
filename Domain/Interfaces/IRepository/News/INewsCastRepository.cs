@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.Tendor
+namespace Domain.Interfaces.IRepository.News
 {
-    public class Tendor
+    public interface INewsCastRepository
     {
     }
 }
