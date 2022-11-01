@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.File
+namespace Domain.Interfaces.IRepository.Tenders
 {
-    class MediaEntity
+  public interface ITenderRepository
     {
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.News
+namespace Domain.Interfaces.IRepository.News
 {
-    public class News
+    public interface INewsCastRepository
     {
     }
 }

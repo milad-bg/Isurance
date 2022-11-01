@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.Tendor
+namespace Domain.Domain.Entities.Information
 {
-    public class Tendor
+    public class Person : BaseEntity
     {
     }
 }
