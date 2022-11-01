@@ -12,7 +12,7 @@ namespace Domain.Interfaces.IGenericRepositores
 
         Task<T> GetByIdAsync(long id);
         
-        Task<bool> AddAsync(T entity);
+        Task<bool> InsertAsync(T entity);
         
         Task<bool> DeleteAsync(long id);
     }

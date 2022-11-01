@@ -1,9 +1,11 @@
 ﻿using Domain.Enums.News;
 
-namespace Domain.Domain.Entities.News
+namespace Application.Servises.News.Commads
 {
-    public class NewsCast : BaseEntity
+    public class EditNewsCastCommand
     {
+        public long Id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

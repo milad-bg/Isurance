@@ -18,16 +18,19 @@ namespace Infrastructure.GenericRepositores
             dbSet = context.Set<T>();
         }
 
-        public virtual async Task<bool> AddAsync(T entity)
+        public virtual async Task<bool> InsertAsync(T entity)
         {
             await dbSet.AddAsync(entity);
+            
             return true;
         }
 
         public virtual async Task<bool> DeleteAsync(long id)
         {
             var result = await dbSet.FindAsync(id);
+
             dbSet.Remove(result);
+            
             return true;
         }
 
@@ -40,5 +43,6 @@ namespace Infrastructure.GenericRepositores
         {
             return await dbSet.FindAsync(id);
         }
+
     }
 }

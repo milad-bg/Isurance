@@ -1,8 +1,8 @@
 ﻿using Domain.Enums.News;
 
-namespace Domain.Domain.Entities.News
+namespace Application.Servises.News.Commads
 {
-    public class NewsCast : BaseEntity
+    public class AddNewsCastCommand
     {
         public string Title { get; set; }
 

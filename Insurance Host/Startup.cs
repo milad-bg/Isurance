@@ -1,8 +1,12 @@
+using Application.Servises.News;
+using AutoMapper;
 using Domain.Domain.Entities;
 using Domain.Interfaces.IGenericRepositores;
+using Domain.Interfaces.IRepository.News;
 using Domain.Interfaces.IUnitOfWork;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
+using Infrastructure.Repositories.News;
 using Infrastructure.UnitOFWorks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace Insurance_Host
 {
@@ -35,11 +40,22 @@ namespace Insurance_Host
             });
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DataBaseDbcontext>().AddDefaultTokenProviders();
 
+            services.AddTransient<INewsCastService, NewsCastServise>();
+            services.AddTransient<INewsCastRepository, NewsCastRepository>();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var logger = serviceProvider.GetService<ILogger<ApplicationLogs>>();
+            services.AddSingleton(typeof(ILogger), logger);
+
             ////GenericRepository
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             ////unitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

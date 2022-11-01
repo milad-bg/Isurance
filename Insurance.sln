@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Insurance Host", "Insurance
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Domain", "2-Domain", "{C4F1F9EA-6743-4558-88F3-FB870F679A86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{03225B2D-4F0C-451A-8FAE-571EDC886168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{03225B2D-4F0C-451A-8FAE-571EDC886168}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

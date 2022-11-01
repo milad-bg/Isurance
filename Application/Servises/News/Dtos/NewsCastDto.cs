@@ -1,10 +1,9 @@
 ﻿using Domain.Enums.News;
 
-namespace Domain.Domain.Entities.News
+namespace Application.Servises.News.Dtos
 {
-    public class NewsCast : BaseEntity
+    public class NewsCastDto
     {
-        public string Title { get; set; }
 
         public string Description { get; set; }
 

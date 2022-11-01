@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces.IRepository.Files;
+﻿using Domain.Interfaces.IGenericRepositores;
+using Domain.Interfaces.IRepository.Files;
 using Domain.Interfaces.IRepository.Informations;
 using Domain.Interfaces.IRepository.News;
 using Domain.Interfaces.IRepository.Projects;

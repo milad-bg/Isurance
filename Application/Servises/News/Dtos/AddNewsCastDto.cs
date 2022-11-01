@@ -1,8 +1,8 @@
 ﻿using Domain.Enums.News;
 
-namespace Domain.Domain.Entities.News
+namespace Application.Servises.News.Dtos
 {
-    public class NewsCast : BaseEntity
+    public class AddNewsCastDto
     {
         public string Title { get; set; }
 
@@ -15,5 +15,7 @@ namespace Domain.Domain.Entities.News
         public byte IsFeaturedPriority { get; set; }
 
         public NewsPriority NewsPriority { get; set; }
+
+        public bool IsSucceed { get; set; }
     }
 }
