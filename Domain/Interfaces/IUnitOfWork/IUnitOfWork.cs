@@ -28,6 +28,6 @@ namespace Domain.Interfaces.IUnitOfWork
 
         ITenderRepository Tender { get; }
 
-        Task CompleteAsync();
+        void Complete();
     }
 }

@@ -50,9 +50,8 @@ namespace Infrastructure.UnitOFWorks
 
         public ITenderRepository Tender { get; private set; }
 
-        public async Task CompleteAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+        public void Complete() => 
+            _context.SaveChanges();
+    
     }
 }

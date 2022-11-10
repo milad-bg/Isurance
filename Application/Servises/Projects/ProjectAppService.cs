@@ -1,4 +1,5 @@
-﻿using Domain.Domain.Entities.Healper;
+﻿using Domain.Commands;
+using Domain.Domain.Entities.Healper;
 using Domain.Domain.Entities.Projects;
 using Domain.Interfaces.AppService_Interfaces;
 using Domain.Interfaces.IUnitOfWork;
@@ -17,6 +18,44 @@ namespace Application.Servises.Projects
         {
             _unitOfWork = unitOfWork;
         }
+
+        // TODO: milad -> i have to async this method and put await before Complete method(because it wasnt inserting in db but i was getting true result)
+        public bool AddProject(AddProjectCommand projectCommand)
+        {
+            var project = ToProject(projectCommand);
+            _unitOfWork.Project.InsertAsync(project);
+            _unitOfWork.Complete();
+            return true;
+
+            #region Local Functions
+            static Project ToProject(AddProjectCommand projectCommand)
+            {
+                return new Project()
+                {
+                    City = ToCity(projectCommand.City),
+                    Content = projectCommand.Content,
+                    CreationDate = DateTime.Now,
+                    LastUpdateDate = DateTime.Now,
+                    Description = projectCommand.Description,
+                    Priority = projectCommand.Priority,
+                    State = projectCommand.State,
+                    Title = projectCommand.Title
+                };
+            }
+
+            static City ToCity(AddCityCommand cityCommand)
+            {
+                return new City()
+                {
+                    Name = cityCommand.Name,
+                    CreationDate = DateTime.Now,
+                    LastUpdateDate = DateTime.Now
+                };
+            }
+
+            #endregion
+        }
+
         public List<Project> GetAllProjects(PagingParameters parameters)
         {
             return _unitOfWork.Project
