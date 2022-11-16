@@ -19,6 +19,7 @@ namespace Application.Servises.Projects
             _unitOfWork = unitOfWork;
         }
 
+
         // TODO: milad -> i have to async this method and put await before Complete method(because it wasnt inserting in db but i was getting true result)
         public bool AddProject(AddProjectCommand projectCommand)
         {
@@ -43,7 +44,7 @@ namespace Application.Servises.Projects
                 };
             }
 
-            static City ToCity(AddCityCommand cityCommand)
+            static City ToCity(AddAndUpdateCityCommand cityCommand)
             {
                 return new City()
                 {
@@ -56,10 +57,30 @@ namespace Application.Servises.Projects
             #endregion
         }
 
+        public void DeleteProject(long id)
+        {
+            _unitOfWork.Project
+                .DeleteAsync(id);
+
+            _unitOfWork.Complete();
+        }
+
         public List<Project> GetAllProjects(PagingParameters parameters)
         {
             return _unitOfWork.Project
                 .GetProjects(parameters.PageNumber, parameters.PageSize);
         }
+
+        public async void UpdateProject(UpdateProjectCommand updateProjectCommand)
+        {
+            var project = await _unitOfWork.Project
+                .GetByIdAsync(updateProjectCommand.Id);
+
+            project.Update(updateProjectCommand);
+            
+            _unitOfWork.Complete();
+        }
+
+        
     }
 }

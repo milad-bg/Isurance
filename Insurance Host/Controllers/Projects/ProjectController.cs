@@ -34,7 +34,21 @@ namespace Insurance_Host.Controllers.Projects
             return OkResult(ApiMessage.Ok, result);
         }
 
+        // ToDo: milad -> test
+        [HttpPost("UpdateProject")]
+        public IActionResult UpdateProject([FromBody] UpdateProjectCommand updateProjectCommand)
+        {
+            _appService.UpdateProject(updateProjectCommand);
+            return OkResult(ApiMessage.Ok);
+        }
 
+        // ToDo: milad -> test
+        [HttpPost("DeleteProject")]
+        public IActionResult DeleteProject(long id)
+        {
+            _appService.DeleteProject(id);
+            return OkResult(ApiMessage.Ok);
+        }
 
 
     }

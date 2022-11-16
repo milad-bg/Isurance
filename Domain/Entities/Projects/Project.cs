@@ -1,4 +1,5 @@
-﻿using Domain.Enums.Project;
+﻿using Domain.Commands;
+using Domain.Enums.Project;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,5 +19,15 @@ namespace Domain.Domain.Entities.Projects
         public long CityId { get; set; }
         #endregion
 
+        public void Update(UpdateProjectCommand updateProjectCommand)
+        {
+            this.Title = updateProjectCommand.Title;
+            this.State = updateProjectCommand.State;
+            this.Priority = updateProjectCommand.Priority;
+            this.Content = updateProjectCommand.Content;
+            this.Description = updateProjectCommand.Description;
+            this.CityId = updateProjectCommand.City.Id;
+            this.LastUpdateDate = DateTime.Now;
+        }
     }
 }

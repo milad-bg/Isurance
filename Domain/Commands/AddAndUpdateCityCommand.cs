@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Commands
 {
-    public class AddCityCommand
+    public class AddAndUpdateCityCommand
     {
         public int Id { get; set; }
         public string Name { get; set; }

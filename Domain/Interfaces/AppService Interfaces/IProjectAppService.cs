@@ -12,5 +12,7 @@ namespace Domain.Interfaces.AppService_Interfaces
     {
         List<Project> GetAllProjects(PagingParameters parameters);
         bool AddProject(AddProjectCommand projectCommand);
+        void UpdateProject(UpdateProjectCommand updateProjectCommand);
+        void DeleteProject(long Id);
     }
 }
