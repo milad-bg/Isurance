@@ -81,6 +81,13 @@ namespace Application.Servises.Projects
             _unitOfWork.Complete();
         }
 
-        
+        public Project GetById(long id)
+        {
+            return _unitOfWork.Project
+                .GetByIdAsync(id).Result;
+        }
+
+
+
     }
 }

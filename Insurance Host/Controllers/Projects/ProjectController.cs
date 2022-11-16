@@ -1,4 +1,5 @@
 ﻿using Domain.Commands;
+using Domain.Commands.Project;
 using Domain.Domain.Entities.Healper;
 using Domain.Interfaces.AppService_Interfaces;
 using Finance_fund.Controllers;
@@ -44,12 +45,18 @@ namespace Insurance_Host.Controllers.Projects
 
         // ToDo: milad -> test
         [HttpPost("DeleteProject")]
-        public IActionResult DeleteProject(long id)
+        public IActionResult DeleteProject(DeleteProjectCommand deleteProjectCommand)
         {
-            _appService.DeleteProject(id);
+            _appService.DeleteProject(deleteProjectCommand.Id);
             return OkResult(ApiMessage.Ok);
         }
 
+        [HttpGet("GetById")]
+        public IActionResult GetById([FromBody] GetProjectByIdCommand getProjectByIdCommand)
+        {
+            var project = _appService.GetById(getProjectByIdCommand.Id);
+            return OkResult(ApiMessage.Ok, project);
+        }
 
     }
 }
