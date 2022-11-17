@@ -60,6 +60,11 @@ namespace Insurance_Host
             services.AddTransient<IProjectAppService, ProjectAppService>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
 
+            services.AddTransient<ICityAppService, CityAppService>();
+            services.AddTransient<ICityRepository, CityRepository>();
+
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 

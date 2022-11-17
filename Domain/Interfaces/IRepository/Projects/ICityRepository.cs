@@ -8,5 +8,6 @@ namespace Domain.Interfaces.IRepository.Projects
     public interface ICityRepository
     {
         City GetById(long id);
+        List<City> GetAll();
     }
 }
