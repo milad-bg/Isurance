@@ -15,5 +15,6 @@ namespace Domain.Interfaces.AppService_Interfaces
         void UpdateProject(UpdateProjectCommand updateProjectCommand);
         void DeleteProject(long Id);
         Project GetById(long id);
+        Project GetByTitle(string title);
     }
 }

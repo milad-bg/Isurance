@@ -24,6 +24,23 @@ namespace Infrastructure.Repositories.Projects
                    .ToList();
         }
 
+        public Project GetByTitle(string title)
+        {
+            return
+            dbSet.Where(t => t.Title == title)
+            .FirstOrDefault();
+        }
 
+        public void DeleteById(long id)
+        {
+            var project = GetByIdAsync(id);
+            dbSet.Remove(project.Result);
+        }
+
+        public Project GetById(long id)
+        {
+            return
+            dbSet.Find(id);
+        }
     }
 }

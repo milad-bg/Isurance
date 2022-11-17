@@ -35,7 +35,6 @@ namespace Insurance_Host.Controllers.Projects
             return OkResult(ApiMessage.Ok, result);
         }
 
-        // ToDo: milad -> test
         [HttpPost("UpdateProject")]
         public IActionResult UpdateProject([FromBody] UpdateProjectCommand updateProjectCommand)
         {
@@ -43,7 +42,6 @@ namespace Insurance_Host.Controllers.Projects
             return OkResult(ApiMessage.Ok);
         }
 
-        // ToDo: milad -> test
         [HttpPost("DeleteProject")]
         public IActionResult DeleteProject(DeleteProjectCommand deleteProjectCommand)
         {
@@ -58,5 +56,11 @@ namespace Insurance_Host.Controllers.Projects
             return OkResult(ApiMessage.Ok, project);
         }
 
+        [HttpGet("GetByTitle")]
+        public IActionResult GetByTitle([FromBody] GetByTitleCommand getByTitleCommand)
+        {
+            var project = _appService.GetByTitle(getByTitleCommand.Title);
+            return OkResult(ApiMessage.Ok, project);
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace Application.Servises.Projects
             return true;
 
             #region Local Functions
-            static Project ToProject(AddProjectCommand projectCommand)
+            Project ToProject(AddProjectCommand projectCommand)
             {
                 return new Project()
                 {
@@ -44,14 +44,24 @@ namespace Application.Servises.Projects
                 };
             }
 
-            static City ToCity(AddAndUpdateCityCommand cityCommand)
+            City ToCity(AddAndUpdateCityCommand cityCommand)
             {
-                return new City()
+                if (cityCommand.Id == 0)
                 {
-                    Name = cityCommand.Name,
-                    CreationDate = DateTime.Now,
-                    LastUpdateDate = DateTime.Now
-                };
+                    return new City()
+                    {
+                        Name = cityCommand.Name,
+                        CreationDate = DateTime.Now,
+                        LastUpdateDate = DateTime.Now
+                    };
+                }
+                else
+                {
+                    return
+                    _unitOfWork.City
+                        .GetById(cityCommand.Id);
+                }
+
             }
 
             #endregion
@@ -60,7 +70,7 @@ namespace Application.Servises.Projects
         public void DeleteProject(long id)
         {
             _unitOfWork.Project
-                .DeleteAsync(id);
+                .DeleteById(id);
 
             _unitOfWork.Complete();
         }
@@ -71,13 +81,13 @@ namespace Application.Servises.Projects
                 .GetProjects(parameters.PageNumber, parameters.PageSize);
         }
 
-        public async void UpdateProject(UpdateProjectCommand updateProjectCommand)
+        public void UpdateProject(UpdateProjectCommand updateProjectCommand)
         {
-            var project = await _unitOfWork.Project
-                .GetByIdAsync(updateProjectCommand.Id);
+            var project = _unitOfWork.Project
+                .GetById(updateProjectCommand.Id);
 
             project.Update(updateProjectCommand);
-            
+
             _unitOfWork.Complete();
         }
 
@@ -87,7 +97,10 @@ namespace Application.Servises.Projects
                 .GetByIdAsync(id).Result;
         }
 
-
-
+        public Project GetByTitle(string title)
+        {
+            return
+            _unitOfWork.Project.GetByTitle(title);
+        }
     }
 }

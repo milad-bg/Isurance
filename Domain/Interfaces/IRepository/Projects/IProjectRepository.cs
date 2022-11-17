@@ -9,6 +9,9 @@ namespace Domain.Interfaces.IRepository.Projects
 {
     public interface IProjectRepository: IGenericRepository<Project>
     {
+        Project GetById(long id);
+        void DeleteById(long id);
         List<Project> GetProjects(int pageNumber, int pageSize);
+        Project GetByTitle(string title);
     }
 }

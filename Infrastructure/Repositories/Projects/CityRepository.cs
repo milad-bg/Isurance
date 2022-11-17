@@ -11,5 +11,11 @@ namespace Infrastructure.Repositories.Projects
     class CityRepository : GenericRepository<City>, ICityRepository
     {
         public CityRepository(DataBaseDbcontext context) : base(context) { }
+
+        public City GetById(long id)
+        {
+            return 
+            dbSet.Find(id);
+        }
     }
 }
