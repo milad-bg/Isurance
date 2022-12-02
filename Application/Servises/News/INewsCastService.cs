@@ -14,5 +14,7 @@ namespace Application.Servises.News
         Task<NewsCastDto> GetById(long id);
 
         Task<List<NewsCastDto>> GetAllAsync();
+
+        Task<bool> DeleteAsync(long id);
     }
 }

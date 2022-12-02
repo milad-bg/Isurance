@@ -1,6 +1,4 @@
-﻿using Domain.Enums.News;
-
-namespace Application.Servises.News.Dtos
+﻿namespace Application.Servises.News.Dtos
 {
     public class AddNewsCastDto
     {
@@ -14,7 +12,7 @@ namespace Application.Servises.News.Dtos
 
         public byte IsFeaturedPriority { get; set; }
 
-        public NewsPriority NewsPriority { get; set; }
+        public long Priority { get; set; }
 
         public bool IsSucceed { get; set; }
     }

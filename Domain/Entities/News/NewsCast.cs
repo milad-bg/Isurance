@@ -1,6 +1,4 @@
-﻿using Domain.Enums.News;
-
-namespace Domain.Domain.Entities.News
+﻿namespace Domain.Domain.Entities.News
 {
     public class NewsCast : BaseEntity
     {
@@ -14,6 +12,6 @@ namespace Domain.Domain.Entities.News
 
         public byte IsFeaturedPriority { get; set; }
 
-        public NewsPriority NewsPriority { get; set; }
+        public long Priority { get; set; }
     }
 }

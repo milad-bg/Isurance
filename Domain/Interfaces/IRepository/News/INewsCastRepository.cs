@@ -8,12 +8,14 @@ namespace Domain.Interfaces.IRepository.News
 {
     public interface INewsCastRepository
     {
-        Task<bool> AddNewsCastAsync(NewsCast newsCast);
+        Task<NewsCast> AddNewsCastAsync(NewsCast newsCast);
 
         Task<NewsCast> GetByNewsCastIdAsync(long id);
 
         Task<NewsCast> EditNewsCastAsync(NewsCast newsCast);
 
         Task<List<NewsCast>> GetAllNewsCastAsync();
+
+        Task<bool> DeleteNewsCastAsync(long id);
     }
 }

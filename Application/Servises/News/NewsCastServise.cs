@@ -1,11 +1,15 @@
 ﻿using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
 using AutoMapper;
+using Domain.Domain.Entities.File;
 using Domain.Domain.Entities.News;
+using Domain.Enums;
+using Domain.Enums.Flies;
 using Domain.Interfaces.IUnitOfWork;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Servises.News
@@ -15,7 +19,6 @@ namespace Application.Servises.News
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
-
 
         public NewsCastServise(IUnitOfWork unitOfWork, ILogger logger, IMapper mapper)
         {
@@ -36,9 +39,18 @@ namespace Application.Servises.News
 
                 var addNews = await _unitOfWork.NewsCast.AddNewsCastAsync(mapNews);
 
-                if (addNews != true)
+                var mediaEntity = new List<MediaEntity>();
+
+                if (command.CoverMediaId != 0)
                 {
-                    throw new Exception("افزودن اخبار با خطا مواجه شد");
+                    var AddmediaCover = AddMediaInDataBase(command, addNews, MediaEntityType.CoverImage);
+
+                    mediaEntity.Add(AddmediaCover);
+                }
+
+                if (mediaEntity.Any())
+                {
+                    await _unitOfWork.Media.AddRangeAsync(mediaEntity);
                 }
 
                 newsCastDto = _mapper.Map<AddNewsCastDto>(mapNews);
@@ -52,6 +64,35 @@ namespace Application.Servises.News
             }
 
             return newsCastDto;
+        }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            try
+            {
+                var getNewsCast = await _unitOfWork.NewsCast.GetByNewsCastIdAsync(id);
+
+                if (getNewsCast == null)
+                {
+                    throw new Exception("اخبار مورد نظر شما یافت نشد");
+                }
+
+                var deleteNewsCast = await _unitOfWork.NewsCast.DeleteNewsCastAsync(id);
+
+                if (deleteNewsCast == false)
+                {
+                    throw new Exception("اخبار مورد نظر شما حذف نشد");
+                }
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} Add method error", typeof(NewsCastServise));
+
+                throw new Exception("erro catch");
+            }
+
+            return true;
         }
 
         public async Task<EditNewsCastDto> EditAsync(EditNewsCastCommand command)
@@ -130,5 +171,28 @@ namespace Application.Servises.News
 
             return newsCastDto;
         }
+
+        #region Private Method
+
+        private MediaEntity AddMediaInDataBase(AddNewsCastCommand command, NewsCast newsCast, MediaEntityType mediaEntityType)
+        {
+            var media = new MediaEntity()
+            {
+                EntityRef = newsCast.Id,
+
+                EntityType = EntityType.NewsCast,
+
+                MediaEntityType = mediaEntityType,
+
+                MediaRef = command.CoverMediaId,
+
+                CreationDate = DateTime.Now
+            };
+            return media;
+        }
+
+        #endregion
+
+
     }
 }
