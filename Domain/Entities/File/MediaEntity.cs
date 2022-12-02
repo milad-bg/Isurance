@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Domain.Entities.Projects
+namespace Domain.Domain.Entities.File
 {
-    public class Project
+    class MediaEntity
     {
     }
 }
