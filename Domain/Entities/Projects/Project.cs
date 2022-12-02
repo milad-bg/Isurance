@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Domain.Entities.Projects
 {
-    public class Project
+    public class Project : BaseEntity
     {
     }
 }
