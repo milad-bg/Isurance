@@ -21,7 +21,26 @@ namespace Infrastructure.GenericRepositores
         public virtual async Task<bool> InsertAsync(T entity)
         {
             await dbSet.AddAsync(entity);
-            
+
+            return true;
+        }
+
+        public async Task<T> InsertReturnAsync(T entity)
+        {
+            var t = await dbSet.AddAsync(entity);
+
+            return t.Entity;
+        }
+
+        public virtual async Task<bool> AddRange(IEnumerable<T> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException(nameof(entities));
+            }
+
+            await dbSet.AddRangeAsync(entities);
+
             return true;
         }
 
@@ -30,7 +49,7 @@ namespace Infrastructure.GenericRepositores
             var result = await dbSet.FindAsync(id);
 
             dbSet.Remove(result);
-            
+
             return true;
         }
 
@@ -43,6 +62,5 @@ namespace Infrastructure.GenericRepositores
         {
             return await dbSet.FindAsync(id);
         }
-
     }
 }

@@ -51,7 +51,6 @@ namespace Finance_fund.Controllers
                 Message = message;
                 Content = content;
             }
-
         }
         public static class ApiMessage
         {

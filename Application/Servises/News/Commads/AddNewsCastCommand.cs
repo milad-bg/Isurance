@@ -1,6 +1,4 @@
-﻿using Domain.Enums.News;
-
-namespace Application.Servises.News.Commads
+﻿namespace Application.Servises.News.Commads
 {
     public class AddNewsCastCommand
     {
@@ -14,6 +12,8 @@ namespace Application.Servises.News.Commads
 
         public byte IsFeaturedPriority { get; set; }
 
-        public NewsPriority NewsPriority { get; set; }
+        public long Priority { get; set; }
+
+        public long CoverMediaId { get; set; }
     }
 }
