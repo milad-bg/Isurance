@@ -23,7 +23,6 @@ namespace Insurance_Host.Controllers.News
             var newsCast = await _newsCast.AddAsync(command);
 
             return OkResult("Succeed Add News", newsCast);
-
         }
 
         [HttpPost("Edit")]
@@ -48,6 +47,14 @@ namespace Insurance_Host.Controllers.News
             var newsCast = await _newsCast.GetAllAsync();
 
             return OkResult("Succeed getAll News", newsCast);
+        }
+
+        [HttpPost("Delete")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var newsCast = await _newsCast.GetAllAsync();
+
+            return OkResult("حذف با موفقیت انجام شد", newsCast);
         }
     }
 }

@@ -33,6 +33,12 @@ namespace Infrastructure.Context
             modelBuilder.Entity<NewsCast>()
                 .Property(p => p.CreationDate)
                 .IsRequired();
+
+
+            modelBuilder.Entity<MediaEntity>()
+                .HasOne<File>(s => s.Media)
+                .WithMany(g => g.MediaEntities)
+                .HasForeignKey(s => s.MediaRef);
         }
 
     }

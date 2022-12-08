@@ -1,6 +1,4 @@
-﻿using Domain.Enums.News;
-
-namespace Application.Servises.News.Commads
+﻿namespace Application.Servises.News.Commads
 {
     public class EditNewsCastCommand
     {
@@ -16,6 +14,6 @@ namespace Application.Servises.News.Commads
 
         public byte IsFeaturedPriority { get; set; }
 
-        public NewsPriority NewsPriority { get; set; }
+        public long Priority { get; set; }
     }
 }

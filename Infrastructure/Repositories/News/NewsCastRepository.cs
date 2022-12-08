@@ -14,11 +14,18 @@ namespace Infrastructure.Repositories.News
         {
         }
 
-        public async Task<bool> AddNewsCastAsync(NewsCast newsCast)
+        public async Task<NewsCast> AddNewsCastAsync(NewsCast newsCast)
         {
-            await InsertAsync(newsCast);
+            var result = await InsertReturnAsync(newsCast);
 
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
+
+            return result;
+        }
+
+        public async Task<bool> DeleteNewsCastAsync(long id)
+        {
+            return await DeleteAsync(id);
         }
 
         public async Task<NewsCast> EditNewsCastAsync(NewsCast newsCast)
@@ -32,7 +39,7 @@ namespace Infrastructure.Repositories.News
 
         public async Task<List<NewsCast>> GetAllNewsCastAsync()
         {
-            var newsCasts =await GetAll();
+            var newsCasts = await GetAll();
 
             return newsCasts.ToList();
         }
