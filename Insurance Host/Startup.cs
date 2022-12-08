@@ -1,15 +1,19 @@
 using Application.Servises.Files;
 using Application.Servises.News;
+using Application.Servises.Projects;
 using AutoMapper;
 using Domain.Domain.Entities;
+using Domain.Interfaces.AppService_Interfaces;
 using Domain.Interfaces.IGenericRepositores;
 using Domain.Interfaces.IRepository.Files;
 using Domain.Interfaces.IRepository.News;
+using Domain.Interfaces.IRepository.Projects;
 using Domain.Interfaces.IUnitOfWork;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
 using Infrastructure.Repositories.Files;
 using Infrastructure.Repositories.News;
+using Infrastructure.Repositories.Projects;
 using Infrastructure.UnitOFWorks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,6 +63,9 @@ namespace Insurance_Host
 
             ////unitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<IProjectAppService, ProjectAppService>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
