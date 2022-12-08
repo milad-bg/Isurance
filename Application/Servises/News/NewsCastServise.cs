@@ -92,7 +92,7 @@ namespace Application.Servises.News
                 throw new Exception("erro catch");
             }
 
-            return true;
+            return true; 
         }
 
         public async Task<EditNewsCastDto> EditAsync(EditNewsCastCommand command)
