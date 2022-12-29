@@ -4,6 +4,7 @@ using Application.Servises.News.Dtos;
 using AutoMapper;
 using Domain.Domain.Entities.File;
 using Domain.Domain.Entities.News;
+using Domain.Interfaces.IRepository.News.Dtos;
 
 namespace Application.Servises.News.Mapper
 {
@@ -23,7 +24,9 @@ namespace Application.Servises.News.Mapper
 
             CreateMap<NewsCast, NewsCastDto>();
 
-            CreateMap<MediaEntity, MediasDto>() 
+            CreateMap<SearchNewsDto, SearchNewsCastDto>();
+
+            CreateMap<MediaEntity, MediasDto>()
                 .ForMember(destination => destination.Url, option => option.MapFrom(source => "https://plansbox.ir/" + source.Media.Url))
                 .ForMember(destination => destination.Id, option => option.MapFrom(source => source.Media.Id));
         }

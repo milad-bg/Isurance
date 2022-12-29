@@ -214,7 +214,7 @@ namespace Application.Servises.News
 
             try
             {
-                var getAllNewsCast = await _unitOfWork.NewsCast.GetAllNewsCastWebAsync(parameters.PageNumber , parameters.PageSize);
+                var getAllNewsCast = await _unitOfWork.NewsCast.GetAllNewsCastWebAsync(parameters.PageNumber, parameters.PageSize);
 
                 newsCastListDto = _mapper.Map<List<GetNewsCastDto>>(getAllNewsCast);
 
@@ -223,7 +223,7 @@ namespace Application.Servises.News
                 foreach (var newsCast in newsCastListDto)
                 {
                     var getMedia = getAllMedias.FirstOrDefault(f => f.EntityRef == newsCast.Id);
-                        
+
                     if (getMedia != null)
                     {
                         newsCast.CoverMediaId = getMedia.Media.Id;
@@ -346,6 +346,27 @@ namespace Application.Servises.News
             return true;
         }
 
+        public async Task<List<SearchNewsCastDto>> SerachContentAsync(string key)
+        {
+            var searchListNews = new List<SearchNewsCastDto>();
+
+            try
+            {
+                var searchNews = await _unitOfWork.NewsCast.SearchInContentAsync(key);
+
+                searchListNews = _mapper.Map<List<SearchNewsCastDto>>(searchNews);
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} GetById method error", typeof(NewsCastServise));
+
+                throw new Exception("erro catch");
+            }
+
+            return searchListNews;
+        }
+
         #region Private Method
         private MediaEntity AddMediaInDataBase(long mediaId, NewsCast newsCast, MediaEntityType mediaEntityType)
         {
@@ -363,7 +384,6 @@ namespace Application.Servises.News
             };
             return media;
         }
-
         #endregion
     }
 }

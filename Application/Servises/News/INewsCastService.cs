@@ -21,5 +21,7 @@ namespace Application.Servises.News
         Task<bool> DeleteAsync(long id);
 
         Task<bool> DeleTeListAsync(List<long> ids);
+
+        Task<List<SearchNewsCastDto>> SerachContentAsync(string key);
     }
 }

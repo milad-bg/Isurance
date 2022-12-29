@@ -1,6 +1,7 @@
 ﻿using Application.Servises.Files.Dtos;
 using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
+using Application.Servises.Projects.Dtos;
 using AutoMapper;
 using Domain.Domain.Entities.File;
 using Domain.Domain.Entities.Healper;
@@ -343,6 +344,27 @@ namespace Application.Servises.Projects
             }
 
             return true;
+        }
+
+        public async Task<List<SearchProjectDto>> SerachContentAsync(string key)
+        {
+            var searchListNews = new List<SearchProjectDto>();
+
+            try
+            {
+                var searchNews = await _unitOfWork.Project.SearchInContentAsync(key);
+
+                searchListNews = _mapper.Map<List<SearchProjectDto>>(searchNews);
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} GetById method error", typeof(ProjectAppService));
+
+                throw new Exception("erro catch");
+            }
+
+            return searchListNews;
         }
 
         #region Private Method

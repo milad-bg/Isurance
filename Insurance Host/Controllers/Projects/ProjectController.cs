@@ -96,5 +96,13 @@ namespace Insurance_Host.Controllers.Projects
 
             return OkResult("حذف ها با موفقیت انجام شد", project);
         }
+
+        [HttpGet("SearchProject")]
+        public async Task<IActionResult> SearchProject(string key)
+        {
+            var searchNews = await _project.SerachContentAsync(key);
+
+            return OkResult("", searchNews);
+        }
     }
 }

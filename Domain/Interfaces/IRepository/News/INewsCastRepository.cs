@@ -1,4 +1,5 @@
 ﻿using Domain.Domain.Entities.News;
+using Domain.Interfaces.IRepository.News.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,5 +24,7 @@ namespace Domain.Interfaces.IRepository.News
         Task<bool> DeleteListByIds(List<long> ids);
 
         Task<List<NewsCast>> GetByIds(List<long> ids);
+
+        Task<List<SearchNewsDto>> SearchInContentAsync(string key);
     }
 }

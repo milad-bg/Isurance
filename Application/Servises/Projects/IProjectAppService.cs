@@ -1,5 +1,6 @@
 ﻿using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
+using Application.Servises.Projects.Dtos;
 using Domain.Domain.Entities.Healper;
 using Domain.Domain.Entities.Projects;
 using System;
@@ -24,5 +25,7 @@ namespace Application.Servises.Projects
         Task<bool> DeleteAsync(long id);
 
         Task<bool> DeleTeListAsync(List<long> ids);
+
+        Task<List<SearchProjectDto>> SerachContentAsync(string key);
     }
 }

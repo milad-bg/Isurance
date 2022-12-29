@@ -86,13 +86,21 @@ namespace Insurance_Host.Controllers.News
         public async Task<IActionResult> DeleteList([FromBody] List<long> ids)
         {
             var newsCast = await _newsCast.DeleTeListAsync(ids);
-            
+
             if (newsCast == false)
             {
                 return BadReq(ApiMessage.BadRequest);
             }
 
             return OkResult("حذف ها با موفقیت انجام شد", newsCast);
+        }
+
+        [HttpGet("SearchNews")]
+        public async Task<IActionResult> SearchNews(string key)
+        {
+            var searchNews = await _newsCast.SerachContentAsync(key);
+
+            return OkResult("", searchNews);
         }
     }
 }

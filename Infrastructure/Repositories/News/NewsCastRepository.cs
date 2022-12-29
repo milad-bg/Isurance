@@ -1,5 +1,6 @@
 ﻿using Domain.Domain.Entities.News;
 using Domain.Interfaces.IRepository.News;
+using Domain.Interfaces.IRepository.News.Dtos;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
 using Microsoft.EntityFrameworkCore;
@@ -65,7 +66,7 @@ namespace Infrastructure.Repositories.News
         {
             return dbSet.Where(w => w.IsFeatured == true)
                    .AsParallel()
-                   .OrderBy(o=>o.Priority)
+                   .OrderBy(o => o.Priority)
                    .OrderBy(on => on.CreationDate)
                    .Skip((pageNumber - 1) * pageSize)
                    .Take(pageSize)
@@ -77,6 +78,21 @@ namespace Infrastructure.Repositories.News
             var newscast = await GetByIdAsync(id);
 
             return newscast;
+        }
+
+        public async Task<List<SearchNewsDto>> SearchInContentAsync(string key)
+        {
+            return await dbSet
+                .Where(w => w.IsFeatured == true && (w.UpperContent.Contains(key) || w.DownContent.Contains(key)))
+                .OrderBy(model => model.Title)
+                .Take(20)
+                .Select(model => new SearchNewsDto
+                {
+                    Id = model.Id,
+                    Title = model.Title
+                })
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

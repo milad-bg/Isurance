@@ -1,5 +1,6 @@
 ﻿using Domain.Domain.Entities.Projects;
 using Domain.Interfaces.IRepository.Projects;
+using Domain.Interfaces.IRepository.Projects.Dtos;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,10 @@ namespace Infrastructure.Repositories.Projects
         public async Task<List<Project>> GetProjects(int pageNumber, int pageSize)
         {
             return
-                dbSet.Where(w=>w.IsFeatured ==  true)
+                dbSet.Where(w => w.IsFeatured == true)
                    .Include(c => c.City)
                    .AsParallel()
-                   .OrderBy(o=>o.Priority)
+                   .OrderBy(o => o.Priority)
                    .OrderBy(on => on.CreationDate)
                    .Skip((pageNumber - 1) * pageSize)
                    .Take(pageSize)
@@ -78,6 +79,21 @@ namespace Infrastructure.Repositories.Projects
         public async Task<Project> GetByProjectIdAsync(long id)
         {
             return await dbSet.Include(i => i.City).FirstOrDefaultAsync(f => f.Id == id);
+        }
+
+        public async Task<List<SearchProjectsDto>> SearchInContentAsync(string key)
+        {
+            return await dbSet
+                .Where(w => w.IsFeatured == true && (w.UpperContent.Contains(key) || w.DownContent.Contains(key)))
+                .OrderBy(model => model.Title)
+                .Take(20)
+                .Select(model => new SearchProjectsDto
+                {
+                    Id = model.Id,
+                    Title = model.Title
+                })
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }
