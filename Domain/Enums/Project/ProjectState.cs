@@ -5,11 +5,22 @@ using System.Text;
 
 namespace Domain.Enums.Project
 {
-    public enum ProjectState
+    public enum ProjectState : byte
     {
         [Description("پروژه های تکمیل شده")]
-        Done,
+        Done = 1,
         [Description("پروژه های نیمه کاره")]
-        HalfDone
+        HalfDone = 2
+    }
+
+
+
+    public enum ProjectType : byte
+    {
+        [Description("نظارت")]
+        Supervision = 1,
+        [Description("اجرا")]
+        Performance = 2
     }
 }
+

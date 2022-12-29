@@ -6,6 +6,9 @@ namespace Domain.Enums
     public enum EntityType
     {
         [Description("اخبار")]
-        NewsCast = 1000
+        NewsCast = 1000,
+
+        [Description("پروژه")]
+        Project = 1001
     }
 }

@@ -1,14 +1,11 @@
 ﻿using Domain.Enums.Project;
+using System;
 
-namespace Domain.Domain.Entities.Projects
+namespace Application.Servises.News.Dtos
 {
-    public class Project : BaseEntity
+    public class GetProjectDto
     {
-
-        #region navigation
-        public virtual City City { get; set; }
-        public long CityRef { get; set; }
-        #endregion
+        public long Id { get; set; }
 
         public string Title { get; set; }
 
@@ -25,5 +22,10 @@ namespace Domain.Domain.Entities.Projects
         public string DownContent { get; set; }
 
         public bool IsFeatured { get; set; }
+
+        public DateTime CreationDate { get; set; }
+
+        public long CoverMediaId { get; set; }
+        public string CoverMediaUrl { get; set; }
     }
 }

@@ -38,6 +38,15 @@ namespace Infrastructure.Context
                 .HasOne<File>(s => s.Media)
                 .WithMany(g => g.MediaEntities)
                 .HasForeignKey(s => s.MediaRef);
+
+            modelBuilder.Entity<Project>()
+                .Property(p => p.CreationDate)
+                .IsRequired();
+
+            modelBuilder.Entity<Project>()
+                .HasOne<City>(s => s.City)
+                .WithMany(g => g.Projects)
+                .HasForeignKey(s => s.CityRef);
         }
 
     }

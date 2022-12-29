@@ -1,9 +1,9 @@
+using Application.Servises.Cities;
 using Application.Servises.Files;
 using Application.Servises.News;
 using Application.Servises.Projects;
 using AutoMapper;
 using Domain.Domain.Entities;
-using Domain.Interfaces.AppService_Interfaces;
 using Domain.Interfaces.IGenericRepositores;
 using Domain.Interfaces.IRepository.Files;
 using Domain.Interfaces.IRepository.News;
@@ -53,6 +53,9 @@ namespace Insurance_Host
 
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IFileRepository, FileRepository>();
+
+            services.AddTransient<ICityRepository, CityRepository>();
+            services.AddTransient<ICityService, CityServise>();
 
             var serviceProvider = services.BuildServiceProvider();
             var logger = serviceProvider.GetService<ILogger<ApplicationLogs>>();

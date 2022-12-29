@@ -1,14 +1,11 @@
 ﻿using Domain.Enums.Project;
+using System.Collections.Generic;
 
-namespace Domain.Domain.Entities.Projects
+namespace Application.Servises.News.Commads
 {
-    public class Project : BaseEntity
+    public class AddProjectCommand
     {
-
-        #region navigation
-        public virtual City City { get; set; }
-        public long CityRef { get; set; }
-        #endregion
+        public long cityRef { get; set; }
 
         public string Title { get; set; }
 
@@ -25,5 +22,9 @@ namespace Domain.Domain.Entities.Projects
         public string DownContent { get; set; }
 
         public bool IsFeatured { get; set; }
+
+        public long CoverMediaId { get; set; }
+
+        public List<long> Medias { get; set; }
     }
 }

@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\News\" />
-    <Folder Include="Interfaces\AppService Interfaces\" />
+    <Compile Remove="Enums\News\**" />
+    <EmbeddedResource Remove="Enums\News\**" />
+    <None Remove="Enums\News\**" />
   </ItemGroup>
 
   <ItemGroup>
