@@ -27,6 +27,10 @@ namespace Application.Servises.News.Dtos
 
         public DateTime CreationDate { get; set; }
 
+        public long CityId { get; set; }
+
+        public string CityTitle { get; set; }
+
         public long CoverMediaId { get; set; }
         public string CoverMediaUrl { get; set; }
 

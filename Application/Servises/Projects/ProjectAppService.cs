@@ -8,12 +8,10 @@ using Domain.Domain.Entities.Projects;
 using Domain.Enums;
 using Domain.Enums.Flies;
 using Domain.Interfaces.IUnitOfWork;
-using Infrastructure.UnitOFWorks;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Servises.Projects
@@ -31,10 +29,40 @@ namespace Application.Servises.Projects
             _mapper = mapper;
         }
 
-        public List<Project> GetAllProjectsWeb(PagingParameters parameters)
+        public async Task<List<GetProjectDto>> GetAllProjectsWeb(PagingParameters parameters)
         {
-            return _unitOfWork.Project
-                .GetProjects(parameters.PageNumber, parameters.PageSize);
+            var ProjectListDto = new List<GetProjectDto>();
+
+            try
+            {
+                var getAllProject = await _unitOfWork.Project
+                  .GetProjects(parameters.PageNumber, parameters.PageSize);
+
+                ProjectListDto = _mapper.Map<List<GetProjectDto>>(getAllProject);
+
+                var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(getAllProject.Select(s => s.Id).ToList(), EntityType.NewsCast, MediaEntityType.CoverImage);
+
+                foreach (var newsCast in ProjectListDto)
+                {
+                    var getMedia = getAllMedias.FirstOrDefault(f => f.EntityRef == newsCast.Id);
+
+                    if (getMedia != null)
+                    {
+                        newsCast.CoverMediaId = getMedia.Media.Id;
+
+                        newsCast.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url;
+                    }
+                }
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} Add method error", typeof(ProjectAppService));
+
+                throw new Exception("erro catch");
+            }
+
+            return ProjectListDto;
         }
 
         public async Task<AddProjectDto> AddAsync(AddProjectCommand command)
@@ -275,11 +303,11 @@ namespace Application.Servises.Projects
                     return false;
                 }
 
-                var deleteImage = await _unitOfWork.Media.DeleteByEntityRefAndEntityType(id, EntityType.Project);
+                var getMediaProject = await _unitOfWork.Media.GetMediasByEntityRefAndEntityType(id, EntityType.Project);
 
-                if (deleteImage == false)
+                if (getMediaProject.Count() != 0)
                 {
-                    return false;
+                    var deleteImage = await _unitOfWork.Media.DeleteByEntityRefAndEntityType(id, EntityType.Project);
                 }
             }
 
@@ -305,11 +333,6 @@ namespace Application.Servises.Projects
                 }
 
                 var deleteAllImage = await _unitOfWork.Media.DeleteByEnityRefsAndEntityType(ids, EntityType.Project);
-
-                if (deleteAllImage == false)
-                {
-                    return false;
-                }
             }
 
             catch (Exception exception)

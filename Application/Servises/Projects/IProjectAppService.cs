@@ -11,7 +11,7 @@ namespace Application.Servises.Projects
 {
     public interface IProjectAppService
     {
-        List<Project> GetAllProjectsWeb(PagingParameters parameters);
+        Task<List<GetProjectDto>> GetAllProjectsWeb(PagingParameters parameters);
 
         Task<AddProjectDto> AddAsync(AddProjectCommand command);
 

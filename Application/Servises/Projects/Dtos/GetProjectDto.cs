@@ -23,6 +23,10 @@ namespace Application.Servises.News.Dtos
 
         public bool IsFeatured { get; set; }
 
+        public long CityId { get; set; }
+
+        public string CityTitle { get; set; }
+
         public DateTime CreationDate { get; set; }
 
         public long CoverMediaId { get; set; }

@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories.News
         {
             var getNewsCasts = await GetByIds(ids);
 
-             dbSet.RemoveRange(getNewsCasts);
+            dbSet.RemoveRange(getNewsCasts);
 
             return await _context.SaveChangesAsync() > 1;
         }
@@ -61,9 +61,15 @@ namespace Infrastructure.Repositories.News
             return newsCasts.ToList();
         }
 
-        public async Task<List<NewsCast>> GetAllNewsCastWebAsync()
+        public async Task<List<NewsCast>> GetAllNewsCastWebAsync(int pageNumber, int pageSize)
         {
-            return dbSet.Where(w => w.IsFeatured == true).ToList();
+            return dbSet.Where(w => w.IsFeatured == true)
+                   .AsParallel()
+                   .OrderBy(o=>o.Priority)
+                   .OrderBy(on => on.CreationDate)
+                   .Skip((pageNumber - 1) * pageSize)
+                   .Take(pageSize)
+                   .ToList();
         }
 
         public async Task<NewsCast> GetByNewsCastIdAsync(long id)

@@ -1,5 +1,6 @@
 ﻿using Application.Servises.News;
 using Application.Servises.News.Commads;
+using Domain.Domain.Entities.Healper;
 using Finance_fund.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -61,9 +62,9 @@ namespace Insurance_Host.Controllers.News
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAllWeb()
+        public async Task<IActionResult> GetAllWeb([FromBody] PagingParameters parameters)
         {
-            var newsCast = await _newsCast.GetAllAsyncWeb();
+            var newsCast = await _newsCast.GetAllAsyncWeb(parameters);
 
             return OkResult("Succeed getAll News", newsCast);
         }

@@ -3,6 +3,7 @@ using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
 using AutoMapper;
 using Domain.Domain.Entities.File;
+using Domain.Domain.Entities.Healper;
 using Domain.Domain.Entities.News;
 using Domain.Enums;
 using Domain.Enums.Flies;
@@ -207,13 +208,13 @@ namespace Application.Servises.News
             return newsCastListDto;
         }
 
-        public async Task<List<GetNewsCastDto>> GetAllAsyncWeb()
+        public async Task<List<GetNewsCastDto>> GetAllAsyncWeb(PagingParameters parameters)
         {
             var newsCastListDto = new List<GetNewsCastDto>();
 
             try
             {
-                var getAllNewsCast = await _unitOfWork.NewsCast.GetAllNewsCastWebAsync();
+                var getAllNewsCast = await _unitOfWork.NewsCast.GetAllNewsCastWebAsync(parameters.PageNumber , parameters.PageSize);
 
                 newsCastListDto = _mapper.Map<List<GetNewsCastDto>>(getAllNewsCast);
 
@@ -301,11 +302,12 @@ namespace Application.Servises.News
                     return false;
                 }
 
-                var deleteImage = await _unitOfWork.Media.DeleteByEntityRefAndEntityType(id, EntityType.NewsCast);
+                var getMediaProject = await _unitOfWork.Media.GetMediasByEntityRefAndEntityType(id, EntityType.NewsCast);
 
-                if (deleteImage == false)
+                if (getMediaProject.Count() != 0)
                 {
-                    return false;
+                    var deleteImage = await _unitOfWork.Media.DeleteByEntityRefAndEntityType(id, EntityType.NewsCast);
+
                 }
             }
 
@@ -332,10 +334,6 @@ namespace Application.Servises.News
 
                 var deleteAllImage = await _unitOfWork.Media.DeleteByEnityRefsAndEntityType(ids, EntityType.NewsCast);
 
-                if (deleteAllImage == false)
-                {
-                    return false;
-                }
             }
 
             catch (Exception exception)

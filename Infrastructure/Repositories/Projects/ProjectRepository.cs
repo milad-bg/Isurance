@@ -13,11 +13,13 @@ namespace Infrastructure.Repositories.Projects
     {
         public ProjectRepository(DataBaseDbcontext context) : base(context) { }
 
-        public List<Project> GetProjects(int pageNumber, int pageSize)
+        public async Task<List<Project>> GetProjects(int pageNumber, int pageSize)
         {
             return
-                dbSet.Include(c => c.City)
+                dbSet.Where(w=>w.IsFeatured ==  true)
+                   .Include(c => c.City)
                    .AsParallel()
+                   .OrderBy(o=>o.Priority)
                    .OrderBy(on => on.CreationDate)
                    .Skip((pageNumber - 1) * pageSize)
                    .Take(pageSize)
@@ -65,9 +67,7 @@ namespace Infrastructure.Repositories.Projects
 
         public async Task<List<Project>> GetAllProjectAsync()
         {
-            var projects = await GetAll();
-
-            return projects.ToList();
+            return await dbSet.Include(i => i.City).ToListAsync();
         }
 
         public async Task<List<Project>> GetAllProjectWebAsync()
@@ -77,9 +77,7 @@ namespace Infrastructure.Repositories.Projects
 
         public async Task<Project> GetByProjectIdAsync(long id)
         {
-            var newscast = await GetByIdAsync(id);
-
-            return newscast;
+            return await dbSet.Include(i => i.City).FirstOrDefaultAsync(f => f.Id == id);
         }
     }
 }

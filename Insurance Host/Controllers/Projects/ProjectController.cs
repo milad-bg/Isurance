@@ -12,7 +12,7 @@ namespace Insurance_Host.Controllers.Projects
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectController: ApiController
+    public class ProjectController : ApiController
     {
         private IProjectAppService _project;
         public ProjectController(IProjectAppService appService)
@@ -21,11 +21,11 @@ namespace Insurance_Host.Controllers.Projects
         }
 
         [HttpGet("GetProjects")]
-        public IActionResult GetProjects([FromBody] PagingParameters parameters)
+        public async Task<IActionResult> GetProjects([FromBody] PagingParameters parameters)
         {
-            var projects = _project.GetAllProjectsWeb(parameters);
+            var projects = await _project.GetAllProjectsWeb(parameters);
 
-            return OkResult(ApiMessage.Ok, projects);
+            return OkResult("Succeed getAll projects", projects);
         }
 
 
@@ -70,14 +70,6 @@ namespace Insurance_Host.Controllers.Projects
 
             return OkResult("Succeed getAll News", project);
         }
-
-        //[HttpGet("GetAll")]
-        //public async Task<IActionResult> GetAllWeb()
-        //{
-        //    var project = await _project.GetAllAsyncWeb();
-
-        //    return OkResult("Succeed getAll News", project);
-        //}
 
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete(long id)

@@ -1,5 +1,6 @@
 ﻿using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
+using Domain.Domain.Entities.Healper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Application.Servises.News
 
         Task<List<GetNewsCastDto>> GetAllAsyncAddmin();
 
-        Task<List<GetNewsCastDto>> GetAllAsyncWeb();
+        Task<List<GetNewsCastDto>> GetAllAsyncWeb(PagingParameters parameters);
 
         Task<bool> DeleteAsync(long id);
 

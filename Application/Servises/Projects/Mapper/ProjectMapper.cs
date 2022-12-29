@@ -20,9 +20,14 @@ namespace application.servises.Projects.mapper
 
             CreateMap<Project, EditProjectDto>();
 
-            CreateMap<Project, GetProjectDto>();
+            CreateMap<Project, GetProjectDto>()
+                 .ForMember(destination => destination.CityTitle, option => option.MapFrom(source => source.City.Title))
+                 .ForMember(destination => destination.CityId, option => option.MapFrom(source => source.City.Id));
 
-            CreateMap<Project, ProjectData>();
+            CreateMap<Project, ProjectDto>()
+                 .ForMember(destination => destination.CityTitle, option => option.MapFrom(source => source.City.Title))
+                 .ForMember(destination => destination.CityId, option => option.MapFrom(source => source.City.Id));
+
 
             CreateMap<MediaEntity, MediasDto>()
                 .ForMember(destination => destination.Url, option => option.MapFrom(source => "https://plansbox.ir/" + source.Media.Url))
