@@ -20,7 +20,7 @@ namespace Insurance_Host.Controllers.Projects
             _project = appService;
         }
 
-        [HttpGet("GetProjects")]
+        [HttpPost("GetProjects")]
         public async Task<IActionResult> GetProjects([FromBody] PagingParameters parameters)
         {
             var projects = await _project.GetAllProjectsWeb(parameters);

@@ -101,6 +101,5 @@ namespace Insurance_Host.Controllers.Cities
 
             return OkResult("", searchNews);
         }
-
     }
 }
