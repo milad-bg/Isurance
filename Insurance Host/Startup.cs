@@ -57,6 +57,8 @@ namespace Insurance_Host
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ICityService, CityServise>();
 
+            ConfigureCors(services);
+
             var serviceProvider = services.BuildServiceProvider();
             var logger = serviceProvider.GetService<ILogger<ApplicationLogs>>();
             services.AddSingleton(typeof(ILogger), logger);
@@ -99,6 +101,8 @@ namespace Insurance_Host
 
             app.UseAuthorization();
 
+            app.UseCors("Policy");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -110,6 +114,17 @@ namespace Insurance_Host
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showing API V1");
             });
+        }
+
+
+        private void ConfigureCors(IServiceCollection services)
+        {
+            services.AddCors(s => s.AddPolicy("Policy", builder =>
+            {
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+                builder.AllowAnyOrigin();
+            }));
         }
     }
 }
