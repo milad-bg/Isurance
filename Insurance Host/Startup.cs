@@ -116,7 +116,6 @@ namespace Insurance_Host
             });
         }
 
-
         private void ConfigureCors(IServiceCollection services)
         {
             services.AddCors(s => s.AddPolicy("Policy", builder =>

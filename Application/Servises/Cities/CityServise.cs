@@ -206,5 +206,26 @@ namespace Application.Servises.Cities
             return true;
         }
 
+       public async Task<List<SeatchCitysDto>> SerachContentAsync(string key)
+        {
+            var searchListCity = new List<SeatchCitysDto>();
+
+            try
+            {
+                var searchNews = await _unitOfWork.City.SearchInContentAsync(key);
+
+                searchListCity = _mapper.Map<List<SeatchCitysDto>>(searchNews);
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} GetById method error", typeof(CityServise));
+
+                throw new Exception("erro catch");
+            }
+
+            return searchListCity;
+        }
+
     }
 }

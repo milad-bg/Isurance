@@ -1,4 +1,5 @@
 ﻿using Domain.Domain.Entities.Projects;
+using Domain.Interfaces.IRepository.Projects.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,5 +22,7 @@ namespace Domain.Interfaces.IRepository.Projects
         Task<bool> DeleteListByIds(List<long> ids);
 
         Task<List<City>> GetByIds(List<long> ids);
+
+        Task<List<SearchCityDto>> SearchInContentAsync(string key);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.Domain.Entities.Projects;
 using Domain.Interfaces.IRepository.Projects;
+using Domain.Interfaces.IRepository.Projects.Dtos;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
 using Microsoft.EntityFrameworkCore;
@@ -70,5 +71,21 @@ namespace Infrastructure.Repositories.Projects
 
             return city;
         }
+
+        public async Task<List<SearchCityDto>> SearchInContentAsync(string key)
+        {
+            return await dbSet
+                .Where(w => w.IsFeatured == true && w.Title.Contains(key))
+                .OrderBy(model => model.Title)
+                .Take(20)
+                .Select(model => new SearchCityDto
+                {
+                    Id = model.Id,
+                    Title = model.Title
+                })
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
     }
 }

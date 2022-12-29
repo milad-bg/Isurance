@@ -94,5 +94,13 @@ namespace Insurance_Host.Controllers.Cities
             return OkResult("حذف ها با موفقیت انجام شد", city);
         }
 
+        [HttpGet("SearchCity")]
+        public async Task<IActionResult> SearchCity(string key)
+        {
+            var searchNews = await _city.SerachContentAsync(key);
+
+            return OkResult("", searchNews);
+        }
+
     }
 }

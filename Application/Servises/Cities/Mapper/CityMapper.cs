@@ -2,6 +2,7 @@
 using Application.Servises.Cities.Dtos;
 using AutoMapper;
 using Domain.Domain.Entities.Projects;
+using Domain.Interfaces.IRepository.Projects.Dtos;
 
 namespace Application.Servises.Cities.Mapper
 {
@@ -20,6 +21,8 @@ namespace Application.Servises.Cities.Mapper
             CreateMap<City, GetCityDto>();
 
             CreateMap<City, CityDto>();
+
+            CreateMap<SearchCityDto, SeatchCitysDto>();
         }
     }
 }

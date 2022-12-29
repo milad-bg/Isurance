@@ -20,5 +20,8 @@ namespace Application.Servises.Cities
         Task<bool> DeleteAsync(long id);
 
         Task<bool> DeleTeListAsync(List<long> ids);
+
+        Task<List<SeatchCitysDto>> SerachContentAsync(string key);
+
     }
 }
