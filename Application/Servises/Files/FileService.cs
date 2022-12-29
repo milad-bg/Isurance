@@ -23,7 +23,7 @@ namespace Application.Servises.Files
         public async Task<long?> UploadFileAsync(IFormFile file, FileUploadCommand command)
         {
             var fileName = NameGenerator(file.FileName, out var format);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Images", fileName);
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
             var size = file.Length;
 
             if (format != "png" && format != "jpg" && format != "mp4")
@@ -38,16 +38,16 @@ namespace Application.Servises.Files
                     throw new InvalidDataException(" حجم فیلم شماباید کمتر از500 مگابایت باشد!");
             }
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
+            //using (var stream = new FileStream(filePath, FileMode.Create))
+            //{
+            //    await file.CopyToAsync(stream);
+            //}
 
             var newFile = new Domain.Domain.Entities.File.File();
 
             newFile.Url = fileName;
             newFile.Size = size;
-            newFile.FilePath = filePath;
+            //newFile.FilePath = filePath;
             newFile.Keyword = command.Keword;
             newFile.CreationDate = DateTime.Now;
             newFile.MediaEntity = command.MediaType;
@@ -67,7 +67,7 @@ namespace Application.Servises.Files
             var FileDto = new FileDto
             {
                 Type = FileFormat.GetMimeType(File.Url.Split('.').Last()),
-                Url = "http://194.36.174.133/" + File.Url
+                Url = "https://plansbox.ir/" + File.Url
             };
 
             return FileDto;
@@ -83,7 +83,7 @@ namespace Application.Servises.Files
 
             await _fileRepository.DeleteFileAsync(file);
 
-            File.Delete(file.FilePath);
+            //File.Delete(file.FilePath);
 
             return await _fileRepository.SaveChanges();
         }

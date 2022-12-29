@@ -16,6 +16,12 @@ namespace Domain.Interfaces.IRepository.News
 
         Task<List<NewsCast>> GetAllNewsCastAsync();
 
+        Task<List<NewsCast>> GetAllNewsCastWebAsync();
+
         Task<bool> DeleteNewsCastAsync(long id);
+
+        Task<bool> DeleteListByIds(List<long> ids);
+
+        Task<List<NewsCast>> GetByIds(List<long> ids);
     }
 }

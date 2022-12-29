@@ -1,6 +1,7 @@
 ﻿using Domain.Domain.Entities.File;
 using Domain.Enums.Flies;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.IRepository.Files
@@ -14,5 +15,8 @@ namespace Domain.Interfaces.IRepository.Files
         Task DeleteFileAsync(File file);
 
         Task<bool> SaveChanges();
+
+        Task<List<File>> GetMediaByIds(List<long> Ids);
+
     }
 }

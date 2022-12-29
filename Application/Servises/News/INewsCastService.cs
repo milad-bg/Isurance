@@ -13,8 +13,12 @@ namespace Application.Servises.News
 
         Task<NewsCastDto> GetById(long id);
 
-        Task<List<NewsCastDto>> GetAllAsync();
+        Task<List<GetNewsCastDto>> GetAllAsyncAddmin();
+
+        Task<List<GetNewsCastDto>> GetAllAsyncWeb();
 
         Task<bool> DeleteAsync(long id);
+
+        Task<bool> DeleTeListAsync(List<long> ids);
     }
 }

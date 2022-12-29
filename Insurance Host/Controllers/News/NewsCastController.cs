@@ -2,6 +2,7 @@
 using Application.Servises.News.Commads;
 using Finance_fund.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Insurance_Host.Controllers.News
@@ -30,6 +31,11 @@ namespace Insurance_Host.Controllers.News
         {
             var newsCast = await _newsCast.EditAsync(command);
 
+            if (newsCast == null)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
+
             return OkResult("Succeed Edit News", newsCast);
         }
 
@@ -38,13 +44,26 @@ namespace Insurance_Host.Controllers.News
         {
             var newsCast = await _newsCast.GetById(id);
 
+            if (newsCast == null)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
+
             return OkResult("Succeed get News", newsCast);
         }
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllAddmin")]
+        public async Task<IActionResult> GetAllAddmin()
         {
-            var newsCast = await _newsCast.GetAllAsync();
+            var newsCast = await _newsCast.GetAllAsyncAddmin();
+
+            return OkResult("Succeed getAll News", newsCast);
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAllWeb()
+        {
+            var newsCast = await _newsCast.GetAllAsyncWeb();
 
             return OkResult("Succeed getAll News", newsCast);
         }
@@ -52,9 +71,27 @@ namespace Insurance_Host.Controllers.News
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete(long id)
         {
-            var newsCast = await _newsCast.GetAllAsync();
+            var newsCast = await _newsCast.DeleteAsync(id);
+
+            if (newsCast == false)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
 
             return OkResult("حذف با موفقیت انجام شد", newsCast);
+        }
+
+        [HttpPost("DeleteList")]
+        public async Task<IActionResult> DeleteList([FromBody] List<long> ids)
+        {
+            var newsCast = await _newsCast.DeleTeListAsync(ids);
+            
+            if (newsCast == false)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
+
+            return OkResult("حذف ها با موفقیت انجام شد", newsCast);
         }
     }
 }

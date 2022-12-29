@@ -2,6 +2,7 @@
 using Domain.Interfaces.IRepository.News;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,9 +24,25 @@ namespace Infrastructure.Repositories.News
             return result;
         }
 
+        public async Task<bool> DeleteListByIds(List<long> ids)
+        {
+            var getNewsCasts = await GetByIds(ids);
+
+             dbSet.RemoveRange(getNewsCasts);
+
+            return await _context.SaveChangesAsync() > 1;
+        }
+
+        public async Task<List<NewsCast>> GetByIds(List<long> ids)
+        {
+            return await dbSet.Where(w => ids.Contains(w.Id)).ToListAsync();
+        }
+
         public async Task<bool> DeleteNewsCastAsync(long id)
         {
-            return await DeleteAsync(id);
+            await DeleteAsync(id);
+
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<NewsCast> EditNewsCastAsync(NewsCast newsCast)
@@ -42,6 +59,11 @@ namespace Infrastructure.Repositories.News
             var newsCasts = await GetAll();
 
             return newsCasts.ToList();
+        }
+
+        public async Task<List<NewsCast>> GetAllNewsCastWebAsync()
+        {
+            return dbSet.Where(w => w.IsFeatured == true).ToList();
         }
 
         public async Task<NewsCast> GetByNewsCastIdAsync(long id)

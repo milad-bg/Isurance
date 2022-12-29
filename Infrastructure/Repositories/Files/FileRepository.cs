@@ -3,6 +3,8 @@ using Domain.Interfaces.IRepository.Files;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories.Files
@@ -29,6 +31,13 @@ namespace Infrastructure.Repositories.Files
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<List<File>> GetMediaByIds(List<long> Ids)
+        {
+            var result = dbSet.Where(w => Ids.Contains(w.Id));
+
+            return result.ToList();
         }
     }
 }
