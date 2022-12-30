@@ -355,6 +355,20 @@ namespace Application.Servises.Projects
                 var searchNews = await _unitOfWork.Project.SearchInContentAsync(key);
 
                 searchListNews = _mapper.Map<List<SearchProjectDto>>(searchNews);
+
+                var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(searchNews.Select(s => s.Id).ToList(), EntityType.NewsCast, MediaEntityType.CoverImage);
+
+                foreach (var newsCast in searchListNews)
+                {
+                    var getMedia = getAllMedias.FirstOrDefault(f => f.EntityRef == newsCast.Id);
+
+                    if (getMedia != null)
+                    {
+                        newsCast.CoverMediaId = getMedia.Media.Id;
+
+                        newsCast.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url;
+                    }
+                }
             }
 
             catch (Exception exception)

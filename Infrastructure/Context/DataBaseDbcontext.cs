@@ -4,6 +4,7 @@ using Domain.Domain.Entities.Information;
 using Domain.Domain.Entities.News;
 using Domain.Domain.Entities.Projects;
 using Domain.Domain.Entities.Tendor;
+using Domain.Entities.Tenders;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,8 @@ namespace Infrastructure.Context
         public DbSet<City> Cities { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Tender> Tenders { get; set; }
+
+        public DbSet<ProductService> ProductServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +50,12 @@ namespace Infrastructure.Context
                 .HasOne<City>(s => s.City)
                 .WithMany(g => g.Projects)
                 .HasForeignKey(s => s.CityRef);
+
+
+            modelBuilder.Entity<Tender>()
+                .HasOne<ProductService>(s => s.ProductService)
+                .WithMany(g => g.Tenders)
+                .HasForeignKey(s => s.ProductServiceRef);
         }
 
     }

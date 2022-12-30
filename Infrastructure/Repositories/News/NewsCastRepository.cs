@@ -31,7 +31,7 @@ namespace Infrastructure.Repositories.News
 
             dbSet.RemoveRange(getNewsCasts);
 
-            return await _context.SaveChangesAsync() > 1;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<NewsCast>> GetByIds(List<long> ids)
@@ -64,13 +64,12 @@ namespace Infrastructure.Repositories.News
 
         public async Task<List<NewsCast>> GetAllNewsCastWebAsync(int pageNumber, int pageSize)
         {
-            return dbSet.Where(w => w.IsFeatured == true)
-                   .AsParallel()
+            return await dbSet.Where(w => w.IsFeatured == true)
                    .OrderBy(o => o.Priority)
                    .OrderBy(on => on.CreationDate)
                    .Skip((pageNumber - 1) * pageSize)
                    .Take(pageSize)
-                   .ToList();
+                   .ToListAsync();
         }
 
         public async Task<NewsCast> GetByNewsCastIdAsync(long id)
@@ -89,7 +88,10 @@ namespace Infrastructure.Repositories.News
                 .Select(model => new SearchNewsDto
                 {
                     Id = model.Id,
-                    Title = model.Title
+                    Title = model.Title,
+                    Description = model.Description,
+                    UpperContent = model.UpperContent,
+                    DownContent = model.DownContent
                 })
                 .AsNoTracking()
                 .ToListAsync();

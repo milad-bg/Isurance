@@ -1,6 +1,7 @@
 ﻿using Application.Servises.Files.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Application.Servises.News.Dtos
 {
@@ -12,8 +13,10 @@ namespace Application.Servises.News.Dtos
 
         public string Description { get; set; }
 
+        [AllowHtml]
         public string UpperContent { get; set; }
 
+        [AllowHtml]
         public string DownContent { get; set; }
 
         public bool IsFeatured { get; set; }

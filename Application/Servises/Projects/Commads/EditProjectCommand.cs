@@ -1,5 +1,6 @@
 ﻿using Domain.Enums.Project;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Application.Servises.News.Commads
 {
@@ -17,8 +18,10 @@ namespace Application.Servises.News.Commads
 
         public int Priority { get; set; }
 
+        [AllowHtml]
         public string UpperContent { get; set; }
 
+        [AllowHtml]
         public string DownContent { get; set; }
 
         public bool IsFeatured { get; set; }

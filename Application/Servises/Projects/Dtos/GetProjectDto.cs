@@ -1,5 +1,6 @@
 ﻿using Domain.Enums.Project;
 using System;
+using System.Web.Mvc;
 
 namespace Application.Servises.News.Dtos
 {
@@ -17,8 +18,10 @@ namespace Application.Servises.News.Dtos
 
         public int Priority { get; set; }
 
+        [AllowHtml]
         public string UpperContent { get; set; }
 
+        [AllowHtml]
         public string DownContent { get; set; }
 
         public bool IsFeatured { get; set; }

@@ -52,8 +52,8 @@ namespace Insurance_Host.Controllers.Cities
             return OkResult("Succeed get News", city);
         }
 
-        [HttpGet("GetAllAddmin")]
-        public async Task<IActionResult> GetAllAddmin()
+        [HttpGet("GetAllAdmin")]
+        public async Task<IActionResult> GetAllAdmin()
         {
             var city = await _city.GetAllAsyncAddmin();
 

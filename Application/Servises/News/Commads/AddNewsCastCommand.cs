@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Application.Servises.News.Commads
 {
@@ -6,10 +7,12 @@ namespace Application.Servises.News.Commads
     {
         public string Title { get; set; }
 
+        [AllowHtml]
         public string UpperContent { get; set; }
 
         public string Description { get; set; }
 
+        [AllowHtml]
         public string DownContent { get; set; }
 
         public bool IsFeatured { get; set; }

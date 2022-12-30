@@ -4,14 +4,16 @@ using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataBaseDbcontext))]
-    partial class DataBaseDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20221230083654_add_domain_tender")]
+    partial class add_domain_tender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,9 +329,6 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Phone_Number")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ProductServiceRef")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Registration_Number")
                         .HasColumnType("nvarchar(max)");
 
@@ -342,9 +341,10 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Which_Government_Collections_Are_You_An_Aauthorized_Supplier_Of")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<byte>("product_Or_Service_Production_Line")
+                        .HasColumnType("tinyint");
 
-                    b.HasIndex("ProductServiceRef");
+                    b.HasKey("Id");
 
                     b.ToTable("Tenders");
                 });
@@ -418,33 +418,6 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Tenders.ProductService", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsFeature")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductServices");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -592,15 +565,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Domain.Entities.Projects.City", "City")
                         .WithMany("Projects")
                         .HasForeignKey("CityRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Domain.Entities.Tendor.Tender", b =>
-                {
-                    b.HasOne("Domain.Entities.Tenders.ProductService", "ProductService")
-                        .WithMany("Tenders")
-                        .HasForeignKey("ProductServiceRef")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

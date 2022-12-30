@@ -84,13 +84,20 @@ namespace Infrastructure.Repositories.Projects
         public async Task<List<SearchProjectsDto>> SearchInContentAsync(string key)
         {
             return await dbSet
+                .Include(i => i.City)
                 .Where(w => w.IsFeatured == true && (w.UpperContent.Contains(key) || w.DownContent.Contains(key)))
                 .OrderBy(model => model.Title)
-                .Take(20)
+                .Take(10)
                 .Select(model => new SearchProjectsDto
                 {
                     Id = model.Id,
-                    Title = model.Title
+                    Title = model.Title,
+                    UpperContent = model.UpperContent,
+                    DownContent = model.DownContent,
+                    Description = model.Description,
+                    State = model.State,
+                    Type = model.Type,
+                    CityTitle = model.City.Title
                 })
                 .AsNoTracking()
                 .ToListAsync();
