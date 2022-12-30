@@ -148,36 +148,6 @@ namespace Application.Servises.Informaiton
             return aboutUsDto;
         }
 
-        public async Task<bool> DeleteAsync(long id)
-        {
-            try
-            {
-                var getAboutUs = await _unitOfWork.AboutUs.GetByAboutUsIdAsync(id);
-
-                if (getAboutUs == null)
-                {
-                    return false;
-                }
-
-                var deleteAboutUs = await _unitOfWork.AboutUs.DeleteAboutUsAsync(id);
-
-                if (deleteAboutUs == false)
-                {
-                    return false;
-                }
-
-            }
-
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "{Repo} GetById method error", typeof(AboutUsServise));
-
-                throw new Exception("erro catch");
-            }
-
-            return true;
-        }
-
         public async Task<bool> DeleTeListAsync(List<long> ids)
         {
             try

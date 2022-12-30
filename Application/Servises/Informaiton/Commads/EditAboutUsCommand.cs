@@ -12,5 +12,12 @@ namespace Application.Servises.Informaiton.Commads
 
         public int Priority { get; set; }
 
+        public List<AddPersonCommand> Persons { get; set; }
+
+        public EditAboutUsCommand()
+        {
+            Persons = new List<AddPersonCommand>();
+        }
+
     }
 }

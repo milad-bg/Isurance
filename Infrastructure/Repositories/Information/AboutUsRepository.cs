@@ -54,21 +54,17 @@ namespace Infrastructure.Repositories.Information
 
         public async Task<List<AboutUs>> GetAllAboutUsAsync()
         {
-            var aboutUss = await GetAll();
-
-            return aboutUss.ToList();
+            return await dbSet.Include(i => i.Persons).ToListAsync();
         }
 
         public async Task<List<AboutUs>> GetAllAboutUsWebAsync()
         {
-            return dbSet.Where(w => w.IsFeatured == true).ToList();
+            return await dbSet.Include(e=>e.Persons).Where(w => w.IsFeatured == true).ToListAsync();
         }
 
         public async Task<AboutUs> GetByAboutUsIdAsync(long id)
         {
-            var aboutUs = await GetByIdAsync(id);
-
-            return aboutUs;
+            return await dbSet.Include(f => f.Persons).FirstOrDefaultAsync(f => f.Id == id);
         }
     }
 }

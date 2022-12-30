@@ -62,7 +62,7 @@ namespace Insurance_Host.Controllers.News
         }
 
         [HttpPost("GetAll")]
-        public async Task<IActionResult> GetAllWeb([FromBody] PagingParameters parameters)
+        public async Task<IActionResult> GetAllWeb([FromBody] NewsCastWebCommand parameters)
         {
             var newsCast = await _newsCast.GetAllAsyncWeb(parameters);
 

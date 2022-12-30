@@ -243,13 +243,25 @@ namespace Application.Servises.News
             return listWendorList;
         }
 
-        public async Task<List<GetNewsCastDto>> GetAllAsyncWeb(PagingParameters parameters)
+        public async Task<List<GetNewsCastDto>> GetAllAsyncWeb(NewsCastWebCommand parameters)
         {
             var newsCastListDto = new List<GetNewsCastDto>();
 
             try
             {
                 var getAllNewsCast = await _unitOfWork.NewsCast.GetAllNewsCastWebAsync(parameters.PageNumber, parameters.PageSize);
+
+                getAllNewsCast = getAllNewsCast.OrderByDescending(o => o.CreationDate).ToList();
+
+                if (parameters.Priority == true)
+                {
+                    getAllNewsCast = getAllNewsCast.OrderBy(o => o.Priority).ToList();
+                }
+
+                if (parameters.CreteDate == true)
+                {
+                    getAllNewsCast = getAllNewsCast.OrderByDescending(o => o.CreationDate).ToList();
+                }
 
                 newsCastListDto = _mapper.Map<List<GetNewsCastDto>>(getAllNewsCast);
 

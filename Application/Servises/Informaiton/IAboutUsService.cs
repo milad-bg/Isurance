@@ -17,8 +17,6 @@ namespace Application.Servises.Informaiton
 
         Task<List<GetAboutUsDto>> GetAllAsyncWeb();
 
-        Task<bool> DeleteAsync(long id);
-
         Task<bool> DeleTeListAsync(List<long> ids);
     }
 }

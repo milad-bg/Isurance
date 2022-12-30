@@ -68,19 +68,6 @@ namespace Insurance_Host.Controllers.Informations
             return OkResult("Succeed getAll News", city);
         }
 
-        [HttpPost("Delete")]
-        public async Task<IActionResult> Delete(long id)
-        {
-            var city = await _aboutUs.DeleteAsync(id);
-
-            if (city == false)
-            {
-                return BadReq(ApiMessage.BadRequest);
-            }
-
-            return OkResult("حذف با موفقیت انجام شد", city);
-        }
-
         [HttpPost("DeleteList")]
         public async Task<IActionResult> DeleteList([FromBody] List<long> ids)
         {

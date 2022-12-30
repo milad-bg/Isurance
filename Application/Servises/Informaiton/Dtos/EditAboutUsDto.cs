@@ -15,5 +15,12 @@ namespace Application.Servises.Informaiton.Dtos
         public int Priority { get; set; }
 
         public DateTime CreationDate { get; set; }
+
+        public List<AddPersonDto> Persons { get; set; }
+
+        public EditAboutUsDto()
+        {
+            Persons = new List<AddPersonDto>();
+        }
     }
 }

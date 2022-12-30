@@ -65,8 +65,6 @@ namespace Infrastructure.Repositories.News
         public async Task<List<NewsCast>> GetAllNewsCastWebAsync(int pageNumber, int pageSize)
         {
             return await dbSet.Where(w => w.IsFeatured == true)
-                   .OrderBy(o => o.Priority)
-                   .OrderBy(on => on.CreationDate)
                    .Skip((pageNumber - 1) * pageSize)
                    .Take(pageSize)
                    .ToListAsync();
