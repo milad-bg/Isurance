@@ -6,7 +6,7 @@ namespace Application.Servises.News.Commads
 {
     public class AddProjectCommand
     {
-        public long cityRef { get; set; }
+        public long CityRef { get; set; }
 
         public string Title { get; set; }
 

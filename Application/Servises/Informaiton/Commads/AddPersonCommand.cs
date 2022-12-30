@@ -1,6 +1,6 @@
-﻿namespace Domain.Domain.Entities.Information
+﻿namespace Application.Servises.Informaiton.Commads
 {
-    public class Person : BaseEntity
+    public class AddPersonCommand
     {
         public string FullName { get; set; }
 

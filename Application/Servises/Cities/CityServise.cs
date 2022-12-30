@@ -38,6 +38,9 @@ namespace Application.Servises.Cities
 
                 mapNews.CreationDate = DateTime.Now;
 
+                mapNews.Title = mapNews.Title.TrimEnd();
+                mapNews.Title = mapNews.Title.TrimStart();
+
                 var addNews = await _unitOfWork.City.AddCityAsync(mapNews);
 
                 cityDto = _mapper.Map<AddCityDto>(mapNews);
@@ -69,6 +72,9 @@ namespace Application.Servises.Cities
                 var mapCity = _mapper.Map(command, getCity);
 
                 mapCity.LastUpdateDate = DateTime.Now;
+
+                mapCity.Title = mapCity.Title.TrimEnd();
+                mapCity.Title = mapCity.Title.TrimStart();
 
                 var EditCity = await _unitOfWork.City.EditCityAsync(mapCity);
 
@@ -206,7 +212,7 @@ namespace Application.Servises.Cities
             return true;
         }
 
-       public async Task<List<SeatchCitysDto>> SerachContentAsync(string key)
+        public async Task<List<SeatchCitysDto>> SerachContentAsync(string key)
         {
             var searchListCity = new List<SeatchCitysDto>();
 

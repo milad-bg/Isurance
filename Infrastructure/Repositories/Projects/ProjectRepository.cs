@@ -73,7 +73,7 @@ namespace Infrastructure.Repositories.Projects
 
             dbSet.RemoveRange(getProjects);
 
-            return await _context.SaveChangesAsync() > 1;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<Project>> GetByIds(List<long> ids)

@@ -208,6 +208,41 @@ namespace Application.Servises.News
             return newsCastListDto;
         }
 
+        public async Task<List<GetNewsCastDto>> GetAllWendorList()
+        {
+            var listWendorList = new List<GetNewsCastDto>();
+
+            try
+            {
+                var getAllNewsCast = await _unitOfWork.NewsCast.GetAllWendorList();
+
+                listWendorList = _mapper.Map<List<GetNewsCastDto>>(getAllNewsCast);
+
+                var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(getAllNewsCast.Select(s => s.Id).ToList(), EntityType.NewsCast, MediaEntityType.CoverImage);
+
+                foreach (var newsCast in listWendorList)
+                {
+                    var getMedia = getAllMedias.FirstOrDefault(f => f.EntityRef == newsCast.Id);
+
+                    if (getMedia != null)
+                    {
+                        newsCast.CoverMediaId = getMedia.Media.Id;
+
+                        newsCast.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url;
+                    }
+                }
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} GetAll method error", typeof(NewsCastServise));
+
+                throw new Exception("erro catch");
+            }
+
+            return listWendorList;
+        }
+
         public async Task<List<GetNewsCastDto>> GetAllAsyncWeb(PagingParameters parameters)
         {
             var newsCastListDto = new List<GetNewsCastDto>();

@@ -1,6 +1,6 @@
-﻿namespace Domain.Domain.Entities.Information
+﻿namespace Application.Servises.Informaiton.Dtos
 {
-    public class Person : BaseEntity
+    public class AddPersonDto
     {
         public string FullName { get; set; }
 

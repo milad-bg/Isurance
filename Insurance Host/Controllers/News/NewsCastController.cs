@@ -102,5 +102,13 @@ namespace Insurance_Host.Controllers.News
 
             return OkResult("", searchNews);
         }
+
+        [HttpGet("GetAllSideBar")]
+        public async Task<IActionResult> GetAllSideBar()
+        {
+            var newsCast = await _newsCast.GetAllWendorList();
+
+            return OkResult("Succeed getAll News", newsCast);
+        }
     }
 }

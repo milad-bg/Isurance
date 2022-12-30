@@ -1,17 +1,20 @@
 using Application.Servises.Cities;
 using Application.Servises.Files;
+using Application.Servises.Informaiton;
 using Application.Servises.News;
 using Application.Servises.Projects;
 using AutoMapper;
 using Domain.Domain.Entities;
 using Domain.Interfaces.IGenericRepositores;
 using Domain.Interfaces.IRepository.Files;
+using Domain.Interfaces.IRepository.Informations;
 using Domain.Interfaces.IRepository.News;
 using Domain.Interfaces.IRepository.Projects;
 using Domain.Interfaces.IUnitOfWork;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
 using Infrastructure.Repositories.Files;
+using Infrastructure.Repositories.Information;
 using Infrastructure.Repositories.News;
 using Infrastructure.Repositories.Projects;
 using Infrastructure.UnitOFWorks;
@@ -56,6 +59,10 @@ namespace Insurance_Host
 
             services.AddTransient<ICityRepository, CityRepository>();
             services.AddTransient<ICityService, CityServise>();
+
+
+            services.AddTransient<IAboutUsRepository, AboutUsRepository>();
+            services.AddTransient<IAboutUsService, AboutUsServise>();
 
             ConfigureCors(services);
 

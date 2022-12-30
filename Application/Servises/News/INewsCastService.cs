@@ -16,6 +16,8 @@ namespace Application.Servises.News
 
         Task<List<GetNewsCastDto>> GetAllAsyncAddmin();
 
+        Task<List<GetNewsCastDto>> GetAllWendorList();
+
         Task<List<GetNewsCastDto>> GetAllAsyncWeb(PagingParameters parameters);
 
         Task<bool> DeleteAsync(long id);

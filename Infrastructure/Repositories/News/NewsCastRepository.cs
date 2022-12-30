@@ -96,5 +96,10 @@ namespace Infrastructure.Repositories.News
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<List<NewsCast>> GetAllWendorList()
+        {
+            return await dbSet.Where(w => w.IsFeatured == true && w.IsFeaturedPriority == true).ToListAsync();
+        }
     }
 }

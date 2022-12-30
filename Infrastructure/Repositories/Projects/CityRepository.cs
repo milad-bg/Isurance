@@ -29,7 +29,7 @@ namespace Infrastructure.Repositories.Projects
 
             dbSet.RemoveRange(getCitys);
 
-            return await _context.SaveChangesAsync() > 1;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<City>> GetByIds(List<long> ids)
