@@ -1,15 +1,13 @@
 ﻿using Domain.Enums.Project;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Domain.Domain.Entities.Healper
+namespace Application.Servises.Projects.Commads
 {
-    public class PagingParameters
+    public class ProjectWebCommad
     {
         const int maxPageSize = 50;
         public int PageNumber { get; set; } = 1;
-            
+
         private int _pageSize = 10;
         public int PageSize
         {
@@ -23,6 +21,14 @@ namespace Domain.Domain.Entities.Healper
             }
         }
 
+        public ProjectState StateDone { get; set; } = 0;
 
-    }
+        public ProjectState StateInprocess { get; set; } = 0;
+
+        public ProjectType ProjectTypePerformance { get; set; } = 0;
+
+        public ProjectType ProjectTypeSupervision { get; set; } = 0;
+
+        public List<long> Cities { get; set; }
+     }
 }

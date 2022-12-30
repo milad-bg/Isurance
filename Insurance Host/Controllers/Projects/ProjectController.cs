@@ -1,5 +1,6 @@
 ﻿using Application.Servises.News.Commads;
 using Application.Servises.Projects;
+using Application.Servises.Projects.Commads;
 using Domain.Domain.Entities.Healper;
 using Finance_fund.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +22,12 @@ namespace Insurance_Host.Controllers.Projects
         }
 
         [HttpPost("GetProjects")]
-        public async Task<IActionResult> GetProjects([FromBody] PagingParameters parameters)
+        public async Task<IActionResult> GetProjects([FromBody] ProjectWebCommad parameters)
         {
             var projects = await _project.GetAllProjectsWeb(parameters);
 
             return OkResult("Succeed getAll projects", projects);
         }
-
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add([FromBody] AddProjectCommand command)

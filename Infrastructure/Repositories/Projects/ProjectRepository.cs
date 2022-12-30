@@ -1,4 +1,5 @@
 ﻿using Domain.Domain.Entities.Projects;
+using Domain.Enums.Project;
 using Domain.Interfaces.IRepository.Projects;
 using Domain.Interfaces.IRepository.Projects.Dtos;
 using Infrastructure.Context;
@@ -14,16 +15,46 @@ namespace Infrastructure.Repositories.Projects
     {
         public ProjectRepository(DataBaseDbcontext context) : base(context) { }
 
-        public async Task<List<Project>> GetProjects(int pageNumber, int pageSize)
+        public async Task<List<Project>> GetProjects(ProjectSerachCommad commad)
         {
+
+            var qury = dbSet.Where(w => w.IsFeatured == true);
+
+            if (commad.StateDone != ProjectState.defult && commad.StateInprocess == ProjectState.defult)
+            {
+                qury = qury.Where(w => w.State == commad.StateDone);
+            }
+
+            if (commad.StateDone == ProjectState.defult && commad.StateInprocess != ProjectState.defult)
+            {
+                qury = qury.Where(w => w.State == commad.StateInprocess);
+            }
+
+            if (commad.ProjectTypePerformance != ProjectType.defult && commad.ProjectTypeSupervision == ProjectType.defult)
+            {
+                qury = qury.Where(w => w.Type == commad.ProjectTypePerformance);
+            }
+
+            if (commad.ProjectTypePerformance == ProjectType.defult && commad.ProjectTypeSupervision != ProjectType.defult)
+            {
+                qury = qury.Where(w => w.Type == commad.ProjectTypeSupervision);
+            }
+
+            var getciti = commad.Cities.Where(w => w != 0);
+
+            if (getciti.Count() != 0)
+            {
+                qury = qury.Where(w => getciti.Contains(w.CityRef));
+            }
+
             return
-                dbSet.Where(w => w.IsFeatured == true)
+                 qury
                    .Include(c => c.City)
                    .AsParallel()
                    .OrderBy(o => o.Priority)
                    .OrderBy(on => on.CreationDate)
-                   .Skip((pageNumber - 1) * pageSize)
-                   .Take(pageSize)
+                   .Skip((commad.PageNuber - 1) * commad.PageSize)
+                   .Take(commad.PageSize)
                    .ToList();
         }
 

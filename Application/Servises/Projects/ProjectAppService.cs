@@ -1,6 +1,7 @@
 ﻿using Application.Servises.Files.Dtos;
 using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
+using Application.Servises.Projects.Commads;
 using Application.Servises.Projects.Dtos;
 using AutoMapper;
 using Domain.Domain.Entities.File;
@@ -30,14 +31,14 @@ namespace Application.Servises.Projects
             _mapper = mapper;
         }
 
-        public async Task<List<GetProjectDto>> GetAllProjectsWeb(PagingParameters parameters)
+        public async Task<List<GetProjectDto>> GetAllProjectsWeb(ProjectWebCommad parameters)
         {
             var ProjectListDto = new List<GetProjectDto>();
 
             try
-            {
+                {
                 var getAllProject = await _unitOfWork.Project
-                  .GetProjects(parameters.PageNumber, parameters.PageSize);
+                  .GetProjects(new Domain.Interfaces.IRepository.Projects.Dtos.ProjectSerachCommad(parameters.PageNumber , parameters.PageSize ,  parameters.StateDone , parameters.StateInprocess , parameters.ProjectTypePerformance ,  parameters.ProjectTypeSupervision , parameters.Cities));
 
                 ProjectListDto = _mapper.Map<List<GetProjectDto>>(getAllProject);
 

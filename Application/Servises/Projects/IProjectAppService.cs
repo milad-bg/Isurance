@@ -1,5 +1,6 @@
 ﻿using Application.Servises.News.Commads;
 using Application.Servises.News.Dtos;
+using Application.Servises.Projects.Commads;
 using Application.Servises.Projects.Dtos;
 using Domain.Domain.Entities.Healper;
 using Domain.Domain.Entities.Projects;
@@ -12,7 +13,7 @@ namespace Application.Servises.Projects
 {
     public interface IProjectAppService
     {
-        Task<List<GetProjectDto>> GetAllProjectsWeb(PagingParameters parameters);
+        Task<List<GetProjectDto>> GetAllProjectsWeb(ProjectWebCommad parameters);
 
         Task<AddProjectDto> AddAsync(AddProjectCommand command);
 

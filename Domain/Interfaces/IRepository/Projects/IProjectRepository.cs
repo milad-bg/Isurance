@@ -9,7 +9,7 @@ namespace Domain.Interfaces.IRepository.Projects
 {
     public interface IProjectRepository
     {
-        Task<List<Project>> GetProjects(int pageNumber, int pageSize);
+        Task<List<Project>> GetProjects(ProjectSerachCommad commad);
 
         Task<Project> AddProjectAsync(Project Project);
 
