@@ -3,6 +3,7 @@ using Domain.Interfaces.IRepository.Informations;
 using Domain.Interfaces.IRepository.News;
 using Domain.Interfaces.IRepository.Projects;
 using Domain.Interfaces.IRepository.Tenders;
+using Domain.Interfaces.IRepository.Users;
 using Domain.Interfaces.IUnitOfWork;
 using Infrastructure.Context;
 using Infrastructure.Repositories.Files;
@@ -10,6 +11,7 @@ using Infrastructure.Repositories.Information;
 using Infrastructure.Repositories.News;
 using Infrastructure.Repositories.Projects;
 using Infrastructure.Repositories.Tenders;
+using Infrastructure.Repositories.Users;
 using System.Threading.Tasks;
 
 namespace Infrastructure.UnitOFWorks
@@ -30,6 +32,8 @@ namespace Infrastructure.UnitOFWorks
             Project = new ProjectRepository(_context);
             City = new CityRepository(_context);
             Tender = new TenderRepository(_context);
+            User = new UserRepository(_context);
+
         }
 
         public IFileRepository File { get; private set; }
@@ -49,6 +53,8 @@ namespace Infrastructure.UnitOFWorks
         public ICityRepository City { get; private set; }
 
         public ITenderRepository Tender { get; private set; }
+
+        public IUserRepository User { get; private set; }
 
         public async Task CompleteAsync()
         {

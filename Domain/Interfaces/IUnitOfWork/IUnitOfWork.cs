@@ -4,6 +4,7 @@ using Domain.Interfaces.IRepository.Informations;
 using Domain.Interfaces.IRepository.News;
 using Domain.Interfaces.IRepository.Projects;
 using Domain.Interfaces.IRepository.Tenders;
+using Domain.Interfaces.IRepository.Users;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.IUnitOfWork
@@ -27,6 +28,8 @@ namespace Domain.Interfaces.IUnitOfWork
         ICityRepository City { get; }
 
         ITenderRepository Tender { get; }
+
+        IUserRepository User { get; }
 
         Task CompleteAsync();
     }

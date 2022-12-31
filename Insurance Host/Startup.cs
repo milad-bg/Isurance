@@ -3,6 +3,7 @@ using Application.Servises.Files;
 using Application.Servises.Informaiton;
 using Application.Servises.News;
 using Application.Servises.Projects;
+using Application.Servises.Users;
 using AutoMapper;
 using Domain.Domain.Entities;
 using Domain.Interfaces.IGenericRepositores;
@@ -10,6 +11,7 @@ using Domain.Interfaces.IRepository.Files;
 using Domain.Interfaces.IRepository.Informations;
 using Domain.Interfaces.IRepository.News;
 using Domain.Interfaces.IRepository.Projects;
+using Domain.Interfaces.IRepository.Users;
 using Domain.Interfaces.IUnitOfWork;
 using Infrastructure.Context;
 using Infrastructure.GenericRepositores;
@@ -17,6 +19,7 @@ using Infrastructure.Repositories.Files;
 using Infrastructure.Repositories.Information;
 using Infrastructure.Repositories.News;
 using Infrastructure.Repositories.Projects;
+using Infrastructure.Repositories.Users;
 using Infrastructure.UnitOFWorks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +66,9 @@ namespace Insurance_Host
 
             services.AddTransient<IAboutUsRepository, AboutUsRepository>();
             services.AddTransient<IAboutUsService, AboutUsServise>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserservice, UserService>();
 
             ConfigureCors(services);
 
