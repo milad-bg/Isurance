@@ -94,8 +94,17 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -127,13 +136,27 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("AboutUsRef")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobTitle")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AboutUsRef");
 
                     b.ToTable("Persons");
                 });
@@ -145,28 +168,34 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DownContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FeaturedPriority")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsFeatured")
                         .HasColumnType("bit");
 
-                    b.Property<byte>("IsFeaturedPriority")
-                        .HasColumnType("tinyint");
+                    b.Property<bool>("IsFeaturedPriority")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("Priority")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpperContent")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -184,10 +213,16 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -202,11 +237,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CityId")
+                    b.Property<long>("CityRef")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -214,21 +246,33 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DownContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsFeatured")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.Property<byte>("State")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("UpperContent")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("CityRef");
 
                     b.ToTable("Projects");
                 });
@@ -240,13 +284,90 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Aadopted_Standards")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address_Company")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address_WebSite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Are_You_A_Knowledge_Based_Company")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Cooperation_Request_Letter_Number")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Do_You_Have_An_Introduction_Letter_Or_ALetter_Of_Aappreciation_Within_The_Social_Security_Organization")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Economic_Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email_For_Essential_Correspondence")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Experience")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Factory_Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Factory_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Flagship_Project_Of_The_Social_Security_Organization")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Have_You_Been_An_Authorized_Supplier_Of_The_Social_Security_Organization_Before")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Letter_Of_Introduction_And_Appreciation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Licenses_Etc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_And_Surname_Of_The_CEO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name_Of_The_Applicant_Ccompany")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("National_Code")
+                        .HasColumnType("int");
+
+                    b.Property<int>("National_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ProductServiceRef")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Registration_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Representation_Of_Foreign_Brands")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("The_Therapeutic_Index_Project_That_Provides_Goods_OrIimplements")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Which_Government_Collections_Are_You_An_Aauthorized_Supplier_Of")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductServiceRef");
 
                     b.ToTable("Tenders");
                 });
@@ -320,6 +441,33 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Tenders.ProductService", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsFeature")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastUpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductServices");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -453,20 +601,38 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.Domain.Entities.Projects.Project", b =>
-                {
-                    b.HasOne("Domain.Domain.Entities.Projects.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Domain.Entities.File.MediaEntity", b =>
                 {
                     b.HasOne("Domain.Domain.Entities.File.File", "Media")
                         .WithMany("MediaEntities")
                         .HasForeignKey("MediaRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Domain.Entities.Information.Person", b =>
+                {
+                    b.HasOne("Domain.Domain.Entities.Information.AboutUs", "AboutUs")
+                        .WithMany("Persons")
+                        .HasForeignKey("AboutUsRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Domain.Entities.Projects.Project", b =>
+                {
+                    b.HasOne("Domain.Domain.Entities.Projects.City", "City")
+                        .WithMany("Projects")
+                        .HasForeignKey("CityRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Domain.Entities.Tendor.Tender", b =>
+                {
+                    b.HasOne("Domain.Entities.Tenders.ProductService", "ProductService")
+                        .WithMany("Tenders")
+                        .HasForeignKey("ProductServiceRef")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

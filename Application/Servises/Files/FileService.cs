@@ -23,7 +23,7 @@ namespace Application.Servises.Files
         public async Task<long?> UploadFileAsync(IFormFile file, FileUploadCommand command)
         {
             var fileName = NameGenerator(file.FileName, out var format);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Images", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
             var size = file.Length;
 
             if (format != "png" && format != "jpg" && format != "mp4")
@@ -67,7 +67,7 @@ namespace Application.Servises.Files
             var FileDto = new FileDto
             {
                 Type = FileFormat.GetMimeType(File.Url.Split('.').Last()),
-                Url = "http://194.36.174.133/" + File.Url
+                Url = "https://plansbox.ir/" + File.Url
             };
 
             return FileDto;
@@ -83,7 +83,7 @@ namespace Application.Servises.Files
 
             await _fileRepository.DeleteFileAsync(file);
 
-            File.Delete(file.FilePath);
+            //File.Delete(file.FilePath);
 
             return await _fileRepository.SaveChanges();
         }

@@ -1,7 +1,9 @@
 ﻿using Application.Servises.News;
 using Application.Servises.News.Commads;
+using Domain.Domain.Entities.Healper;
 using Finance_fund.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Insurance_Host.Controllers.News
@@ -30,6 +32,11 @@ namespace Insurance_Host.Controllers.News
         {
             var newsCast = await _newsCast.EditAsync(command);
 
+            if (newsCast == null)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
+
             return OkResult("Succeed Edit News", newsCast);
         }
 
@@ -38,13 +45,26 @@ namespace Insurance_Host.Controllers.News
         {
             var newsCast = await _newsCast.GetById(id);
 
+            if (newsCast == null)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
+
             return OkResult("Succeed get News", newsCast);
         }
 
-        [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("GetAllAddmin")]
+        public async Task<IActionResult> GetAllAddmin()
         {
-            var newsCast = await _newsCast.GetAllAsync();
+            var newsCast = await _newsCast.GetAllAsyncAddmin();
+
+            return OkResult("Succeed getAll News", newsCast);
+        }
+
+        [HttpPost("GetAll")]
+        public async Task<IActionResult> GetAllWeb([FromBody] NewsCastWebCommand parameters)
+        {
+            var newsCast = await _newsCast.GetAllAsyncWeb(parameters);
 
             return OkResult("Succeed getAll News", newsCast);
         }
@@ -52,9 +72,43 @@ namespace Insurance_Host.Controllers.News
         [HttpPost("Delete")]
         public async Task<IActionResult> Delete(long id)
         {
-            var newsCast = await _newsCast.GetAllAsync();
+            var newsCast = await _newsCast.DeleteAsync(id);
+
+            if (newsCast == false)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
 
             return OkResult("حذف با موفقیت انجام شد", newsCast);
+        }
+
+        [HttpPost("DeleteList")]
+        public async Task<IActionResult> DeleteList([FromBody] List<long> ids)
+        {
+            var newsCast = await _newsCast.DeleTeListAsync(ids);
+
+            if (newsCast == false)
+            {
+                return BadReq(ApiMessage.BadRequest);
+            }
+
+            return OkResult("حذف ها با موفقیت انجام شد", newsCast);
+        }
+
+        [HttpGet("SearchNews")]
+        public async Task<IActionResult> SearchNews(string key)
+        {
+            var searchNews = await _newsCast.SerachContentAsync(key);
+
+            return OkResult("", searchNews);
+        }
+
+        [HttpGet("GetAllSideBar")]
+        public async Task<IActionResult> GetAllSideBar()
+        {
+            var newsCast = await _newsCast.GetAllWendorList();
+
+            return OkResult("Succeed getAll News", newsCast);
         }
     }
 }

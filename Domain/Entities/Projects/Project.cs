@@ -1,22 +1,29 @@
 ﻿using Domain.Enums.Project;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain.Domain.Entities.Projects
 {
     public class Project : BaseEntity
     {
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public string Description { get; set; }
-        public ProjectState State { get; set; }
-        public ProjectPriority Priority { get; set; }
 
         #region navigation
-        public City City { get; set; }
-        public long CityId { get; set; }
+        public virtual City City { get; set; }
+        public long CityRef { get; set; }
         #endregion
 
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public ProjectState State { get; set; }
+
+        public ProjectType Type { get; set; }
+
+        public int Priority { get; set; }
+
+        public string UpperContent { get; set; }
+
+        public string DownContent { get; set; }
+
+        public bool IsFeatured { get; set; }
     }
 }

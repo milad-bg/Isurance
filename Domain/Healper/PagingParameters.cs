@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums.Project;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +9,7 @@ namespace Domain.Domain.Entities.Healper
     {
         const int maxPageSize = 50;
         public int PageNumber { get; set; } = 1;
-
+            
         private int _pageSize = 10;
         public int PageSize
         {
