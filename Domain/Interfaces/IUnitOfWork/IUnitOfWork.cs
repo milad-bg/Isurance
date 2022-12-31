@@ -29,7 +29,7 @@ namespace Domain.Interfaces.IUnitOfWork
 
         ITenderRepository Tender { get; }
 
-        IUserRepository User { get; }
+        IUserRepository Login { get; }
 
         Task CompleteAsync();
     }

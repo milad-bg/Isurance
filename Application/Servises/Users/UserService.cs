@@ -13,11 +13,19 @@ namespace Application.Servises.Users
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
 
+        public UserService(IUnitOfWork unitOfWork, ILogger logger, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _logger = logger;
+            _mapper = mapper;
+        }
+
+
         public async Task<bool> Login(LoginCommand command)
         {
             try
             {
-                var isExistUser = await _unitOfWork.User.IsExistUser(command.UserName, command.Password);
+                var isExistUser = await _unitOfWork.Login.IsExistUser(command.UserName, command.Password);
 
                 if (isExistUser ==  null)
                 {

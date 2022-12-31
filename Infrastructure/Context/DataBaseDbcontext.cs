@@ -4,6 +4,7 @@ using Domain.Domain.Entities.Information;
 using Domain.Domain.Entities.News;
 using Domain.Domain.Entities.Projects;
 using Domain.Domain.Entities.Tendor;
+using Domain.Entities;
 using Domain.Entities.Tenders;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace Infrastructure.Context
         public DbSet<City> Cities { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Tender> Tenders { get; set; }
-
+        public DbSet<Login> Logins { get; set; }
         public DbSet<ProductService> ProductServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

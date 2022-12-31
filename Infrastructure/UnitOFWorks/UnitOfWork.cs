@@ -32,7 +32,7 @@ namespace Infrastructure.UnitOFWorks
             Project = new ProjectRepository(_context);
             City = new CityRepository(_context);
             Tender = new TenderRepository(_context);
-            User = new UserRepository(_context);
+            Login = new UserRepository(_context);
 
         }
 
@@ -54,7 +54,7 @@ namespace Infrastructure.UnitOFWorks
 
         public ITenderRepository Tender { get; private set; }
 
-        public IUserRepository User { get; private set; }
+        public IUserRepository Login { get; private set; }
 
         public async Task CompleteAsync()
         {
