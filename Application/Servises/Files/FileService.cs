@@ -34,7 +34,7 @@ namespace Application.Servises.Files
         public async Task<long?> UploadFileAsync(IFormFile file, FileUploadCommand command)
         {
             var fileName = NameGenerator(file.FileName, out var format);
-            var filePath = Path.Combine("wwwroot", fileName);
+            var filePath = Path.Combine("httpdocs\\wwwroot", fileName);
             var size = file.Length;
 
             if (format != "png" && format != "jpg" && format != "mp4")
