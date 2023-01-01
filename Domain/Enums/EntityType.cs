@@ -9,6 +9,9 @@ namespace Domain.Enums
         NewsCast = 1000,
 
         [Description("پروژه")]
-        Project = 1001
+        Project = 1001,
+
+       [Description("شخص")]
+        Person = 1002
     }
 }

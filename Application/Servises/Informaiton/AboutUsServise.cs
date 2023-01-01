@@ -1,11 +1,15 @@
 ﻿using Application.Servises.Informaiton.Commads;
 using Application.Servises.Informaiton.Dtos;
 using AutoMapper;
+using Domain.Domain.Entities.File;
 using Domain.Domain.Entities.Information;
+using Domain.Enums;
+using Domain.Enums.Flies;
 using Domain.Interfaces.IUnitOfWork;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Servises.Informaiton
@@ -34,6 +38,25 @@ namespace Application.Servises.Informaiton
                 mapNews.CreationDate = DateTime.Now;
 
                 var addNews = await _unitOfWork.AboutUs.AddAboutUsAsync(mapNews);
+
+                var mediaEntity = new List<MediaEntity>();
+
+                for (int i = 0; i < addNews.Persons.Count(); i++)
+                {
+                    if (command.Persons[i].CoverMediaId != 0)
+                    {
+                        var AddmediaCover = AddMediaInDataBase(command.Persons[i].CoverMediaId, addNews.Persons.ToList()[i], MediaEntityType.CoverImage);
+
+                        mediaEntity.Add(AddmediaCover);
+                    }
+                }
+
+                var addMedias = false;
+
+                if (mediaEntity.Any())
+                {
+                    addMedias = await _unitOfWork.Media.AddRangeAsync(mediaEntity);
+                }
 
                 aboutUsDto = _mapper.Map<AddAboutUsDto>(mapNews);
             }
@@ -170,5 +193,25 @@ namespace Application.Servises.Informaiton
 
             return true;
         }
+
+
+        #region Private Method
+        private MediaEntity AddMediaInDataBase(long mediaId, Person newsCast, MediaEntityType mediaEntityType)
+        {
+            var media = new MediaEntity()
+            {
+                EntityRef = newsCast.Id,
+
+                EntityType = EntityType.Person,
+
+                MediaEntityType = mediaEntityType,
+
+                MediaRef = mediaId,
+
+                CreationDate = DateTime.Now
+            };
+            return media;
+        }
+        #endregion
     }
 }

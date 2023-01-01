@@ -1,9 +1,13 @@
 ﻿using Application.Helper;
 using Application.Servises.Files.Commads;
 using Application.Servises.Files.Dtos;
+using AutoMapper;
 using Domain.Interfaces.IRepository.Files;
+using Domain.Interfaces.IUnitOfWork;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,16 +18,23 @@ namespace Application.Servises.Files
     {
 
         private readonly IFileRepository _fileRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
+        private readonly IMapper _mapper;
 
-        public FileService(IFileRepository fileRepository)
+        public FileService(IFileRepository fileRepository,
+            IUnitOfWork unitOfWork, ILogger logger, IMapper mapper)
         {
             _fileRepository = fileRepository;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<long?> UploadFileAsync(IFormFile file, FileUploadCommand command)
         {
             var fileName = NameGenerator(file.FileName, out var format);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
+            var filePath = Path.Combine("wwwroot", fileName);
             var size = file.Length;
 
             if (format != "png" && format != "jpg" && format != "mp4")
@@ -48,7 +59,6 @@ namespace Application.Servises.Files
             newFile.Url = fileName;
             newFile.Size = size;
             newFile.FilePath = filePath;
-            newFile.Keyword = command.Keword;
             newFile.CreationDate = DateTime.Now;
             newFile.MediaEntity = command.MediaType;
 
@@ -88,6 +98,36 @@ namespace Application.Servises.Files
             return await _fileRepository.SaveChanges();
         }
 
+        public async Task<List<GetAllFileDto>> GetAllMedia()
+        {
+            var listDto = new List<GetAllFileDto>();
+
+            try
+            {
+                var getAllImage = await _unitOfWork.File.GetAll();
+
+                foreach (var image in getAllImage)
+                {
+                    image.Url = "https://plansbox.ir/" + image.Url;
+
+                    listDto.Add(new GetAllFileDto()
+                    {
+                        Url = image.Url,
+                        Id = image.Id
+                    });
+                }
+            }
+
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, "{Repo} Add method error", typeof(FileService));
+
+                throw new Exception("erro catch");
+            }
+
+            return listDto;
+        }
+
         #region Private_Methods
         private string NameGenerator(string filename, out string format)
         {
@@ -98,6 +138,7 @@ namespace Application.Servises.Files
 
             return constName + randomNumber + "." + format;
         }
+
         #endregion
     }
 }

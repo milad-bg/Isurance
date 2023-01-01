@@ -68,5 +68,13 @@ namespace Insurance_Host.Controllers.Files
             b = await System.IO.File.ReadAllBytesAsync(Path.Combine(_environment.ContentRootPath, "Images", $"{imageName}"));
             return File(b, "image/jpeg");
         }
+
+        [HttpGet("GetAllImage")]
+        public async Task<IActionResult> GetAllImage ()
+        {
+            var result = await _fileService.GetAllMedia();
+
+            return OkResult("فایل اومدن" , result);
+        }
     }
 }

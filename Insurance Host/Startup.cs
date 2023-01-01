@@ -24,16 +24,13 @@ using Infrastructure.UnitOFWorks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.IO;
 
 namespace Insurance_Host
 {
@@ -124,6 +121,8 @@ namespace Insurance_Host
                 endpoints.MapControllers();
             });
 
+            app.UseStaticFiles();
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
@@ -131,17 +130,6 @@ namespace Insurance_Host
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showing API V1");
             });
 
-
-            var provider = new FileExtensionContentTypeProvider();
-            // Add new mappings
-            provider.Mappings[".myapp"] = "application/x-msdownload";
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
-                ContentTypeProvider = provider
-            });
         }
 
         private void ConfigureCors(IServiceCollection services)

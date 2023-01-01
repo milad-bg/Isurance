@@ -7,5 +7,9 @@
         public string GroupName { get; set; }
 
         public string JobTitle { get; set; }
+
+        public long CoverMediaId { get; set; }
+
+        public int Priority { get; set; }
     }
 }

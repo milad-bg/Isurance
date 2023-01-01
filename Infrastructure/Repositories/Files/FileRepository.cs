@@ -39,5 +39,10 @@ namespace Infrastructure.Repositories.Files
 
             return result.ToList();
         }
+
+        public async Task<List<File>> GetAll()
+        {
+            return await dbSet.ToListAsync();
+        }
     }
 }

@@ -17,5 +17,7 @@ namespace Application.Servises.Files
         Task<FileDto> DownloadFile(long id);
 
         Task<bool> DeleteFileAsync(long id);
+
+        Task<List<GetAllFileDto>> GetAllMedia();
     }
 }

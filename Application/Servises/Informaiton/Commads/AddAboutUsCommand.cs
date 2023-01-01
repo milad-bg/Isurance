@@ -6,10 +6,6 @@ namespace Application.Servises.Informaiton.Commads
     {
         public string Title { get; set; }
 
-        public bool IsFeatured { get; set; }
-
-        public int Priority { get; set; }
-
         public List<AddPersonCommand> Persons { get; set; }
 
         public AddAboutUsCommand()

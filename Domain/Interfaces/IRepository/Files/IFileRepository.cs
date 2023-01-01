@@ -18,5 +18,7 @@ namespace Domain.Interfaces.IRepository.Files
 
         Task<List<File>> GetMediaByIds(List<long> Ids);
 
+        Task<List<File>> GetAll();
+
     }
 }

@@ -59,7 +59,7 @@ namespace Infrastructure.Repositories.Information
 
         public async Task<List<AboutUs>> GetAllAboutUsWebAsync()
         {
-            return await dbSet.Include(e=>e.Persons).Where(w => w.IsFeatured == true).ToListAsync();
+            return await dbSet.Include(e=>e.Persons).ToListAsync();
         }
 
         public async Task<AboutUs> GetByAboutUsIdAsync(long id)

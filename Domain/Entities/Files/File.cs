@@ -11,8 +11,6 @@ namespace Domain.Domain.Entities.File
 
         public long Size { get; set; }
     
-        public string Keyword { get; set; }
-
         public MediaType MediaEntity { get; set; }
 
         public virtual ICollection<MediaEntity> MediaEntities { get; set; } = new HashSet<MediaEntity>();
