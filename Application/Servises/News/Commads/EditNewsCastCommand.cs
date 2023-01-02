@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Application.Servises.News.Commads
@@ -22,6 +23,8 @@ namespace Application.Servises.News.Commads
         public bool IsFeaturedPriority { get; set; }
 
         public int FeaturedPriority { get; set; }
+
+        public DateTime CreatDate { get; set; }
 
         public int Priority { get; set; }
 

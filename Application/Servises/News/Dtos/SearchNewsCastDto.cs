@@ -14,7 +14,7 @@ namespace Application.Servises.News.Dtos
 
         public string DownContent { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime CreatDate { get; set; }
 
         public long CoverMediaId { get; set; }
         public string CoverMediaUrl { get; set; }

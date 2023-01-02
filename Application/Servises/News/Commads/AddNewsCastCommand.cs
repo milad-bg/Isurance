@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Application.Servises.News.Commads
@@ -24,6 +25,8 @@ namespace Application.Servises.News.Commads
         public int Priority { get; set; }
 
         public long CoverMediaId { get; set; }
+
+        public DateTime CreatDate { get; set; }
 
         public List<long> Medias { get; set; }
     }

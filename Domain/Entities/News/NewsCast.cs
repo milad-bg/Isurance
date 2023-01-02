@@ -19,5 +19,7 @@ namespace Domain.Domain.Entities.News
         public int FeaturedPriority { get; set; }
 
         public int Priority { get; set; }
+
+        public DateTime CreatDate { get; set; }
     }
 }
