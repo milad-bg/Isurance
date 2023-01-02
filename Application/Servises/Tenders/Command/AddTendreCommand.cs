@@ -1,14 +1,13 @@
-﻿using Domain.Entities.Tenders;
-using Domain.Enums.Tenders;
+﻿using Domain.Enums.Tenders;
 
-namespace Domain.Domain.Entities.Tendor
+namespace Application.Servises.Tenders.Command
 {
-    public class Tender : BaseEntity
+    public class AddTendreCommand
     {
         public string Name_Of_The_Applicant_Ccompany { get; set; }
 
         public string Registration_Number { get; set; }
-            
+
         public int National_Code { get; set; }
 
         public int National_ID { get; set; }
@@ -45,7 +44,7 @@ namespace Domain.Domain.Entities.Tendor
 
         public string Letter_Of_Introduction_And_Appreciation { get; set; }
 
-        public string Aadopted_Standards { get; set; } 
+        public string Aadopted_Standards { get; set; }
 
         public string Licenses_Etc { get; set; }
 

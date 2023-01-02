@@ -15,3 +15,4 @@ namespace Domain.Entities.Tenders
         public virtual ICollection<Tender> Tenders { get; set; } = new HashSet<Tender>();
     }
 }
+    

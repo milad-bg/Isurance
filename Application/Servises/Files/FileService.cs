@@ -106,7 +106,7 @@ namespace Application.Servises.Files
 
             await _fileRepository.DeleteFileAsync(file);
 
-            //File.Delete(file.FilePath);
+            File.Delete(file.FilePath);
 
             return await _fileRepository.SaveChanges();
         }

@@ -53,10 +53,10 @@ namespace Infrastructure.Context
                 .HasForeignKey(s => s.CityRef);
 
 
-            modelBuilder.Entity<Tender>()
-                .HasOne<ProductService>(s => s.ProductService)
-                .WithMany(g => g.Tenders)
-                .HasForeignKey(s => s.ProductServiceRef);
+            //modelBuilder.Entity<Tender>()
+            //    .HasOne<ProductService>(s => s.ProductService)
+            //    .WithMany(g => g.Tenders)
+            //    .HasForeignKey(s => s.ProductServiceRef);
 
             modelBuilder.Entity<Person>()
                 .HasOne<AboutUs>(s => s.AboutUs)
