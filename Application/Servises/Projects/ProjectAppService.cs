@@ -42,7 +42,7 @@ namespace Application.Servises.Projects
 
                 ProjectListDto = _mapper.Map<List<GetProjectDto>>(getAllProject);
 
-                var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(getAllProject.Select(s => s.Id).ToList(), EntityType.NewsCast, MediaEntityType.CoverImage);
+                var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(getAllProject.Select(s => s.Id).ToList(), EntityType.Project, MediaEntityType.CoverImage);
 
                 foreach (var newsCast in ProjectListDto)
                 {
