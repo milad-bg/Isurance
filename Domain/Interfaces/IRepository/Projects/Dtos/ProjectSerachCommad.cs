@@ -9,25 +9,18 @@ namespace Domain.Interfaces.IRepository.Projects.Dtos
 
         public int PageSize { get; set; }
 
-        public ProjectState StateDone { get; set; }
-
-        public ProjectState StateInprocess { get; set; }
-
-        public ProjectType ProjectTypePerformance { get; set; }
-
-        public ProjectType ProjectTypeSupervision { get; set; }
 
         public List<long> Cities { get; set; }
+        public List<long> Type { get; set; }
+        public List<long> State { get; set; }
 
-        public ProjectSerachCommad(int pageNumber, int pageSize, ProjectState stateDone, ProjectState stateInprocess, ProjectType projectTypePerformance, ProjectType projectTypeSupervision, List<long> cities)
+        public ProjectSerachCommad(int pageNumber, int pageSize,List<long> cities, List<long> type, List<long> state )
         {
             PageNuber = pageNumber;
             PageSize = pageSize;
-            StateDone = stateDone;
-            StateInprocess = stateInprocess;
-            ProjectTypePerformance = projectTypePerformance;
-            ProjectTypeSupervision = projectTypeSupervision;
             Cities = cities;
+            State = state;
+            Type = type;
         }
     }
 }

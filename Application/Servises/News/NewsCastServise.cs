@@ -216,6 +216,8 @@ namespace Application.Servises.News
             {
                 var getAllNewsCast = await _unitOfWork.NewsCast.GetAllWendorList();
 
+                getAllNewsCast = getAllNewsCast.OrderBy(o => o.FeaturedPriority).ToList();
+
                 listWendorList = _mapper.Map<List<GetNewsCastDto>>(getAllNewsCast);
 
                 var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(getAllNewsCast.Select(s => s.Id).ToList(), EntityType.NewsCast, MediaEntityType.CoverImage);
@@ -227,7 +229,6 @@ namespace Application.Servises.News
                     if (getMedia != null)
                     {
                         newsCast.CoverMediaId = getMedia.Media.Id;
-
                         newsCast.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url;
                     }
                 }
@@ -252,16 +253,7 @@ namespace Application.Servises.News
                 var getAllNewsCast = await _unitOfWork.NewsCast.GetAllNewsCastWebAsync(parameters.PageNumber, parameters.PageSize);
 
                 getAllNewsCast = getAllNewsCast.OrderByDescending(o => o.CreationDate).ToList();
-
-                if (parameters.Priority == true)
-                {
-                    getAllNewsCast = getAllNewsCast.OrderBy(o => o.Priority).ToList();
-                }
-
-                if (parameters.CreteDate == true)
-                {
-                    getAllNewsCast = getAllNewsCast.OrderByDescending(o => o.CreationDate).ToList();
-                }
+                getAllNewsCast = getAllNewsCast.OrderBy(o => o.Priority).ToList();
 
                 newsCastListDto = _mapper.Map<List<GetNewsCastDto>>(getAllNewsCast);
 
@@ -274,7 +266,6 @@ namespace Application.Servises.News
                     if (getMedia != null)
                     {
                         newsCast.CoverMediaId = getMedia.Media.Id;
-
                         newsCast.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url;
                     }
                 }

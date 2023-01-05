@@ -20,31 +20,22 @@ namespace Infrastructure.Repositories.Projects
 
             var qury = dbSet.Where(w => w.IsFeatured == true);
 
-            if (commad.StateDone != ProjectState.defult && commad.StateInprocess == ProjectState.defult)
-            {
-                qury = qury.Where(w => w.State == commad.StateDone);
-            }
-
-            if (commad.StateDone == ProjectState.defult && commad.StateInprocess != ProjectState.defult)
-            {
-                qury = qury.Where(w => w.State == commad.StateInprocess);
-            }
-
-            if (commad.ProjectTypePerformance != ProjectType.defult && commad.ProjectTypeSupervision == ProjectType.defult)
-            {
-                qury = qury.Where(w => w.Type == commad.ProjectTypePerformance);
-            }
-
-            if (commad.ProjectTypePerformance == ProjectType.defult && commad.ProjectTypeSupervision != ProjectType.defult)
-            {
-                qury = qury.Where(w => w.Type == commad.ProjectTypeSupervision);
-            }
-
             var getciti = commad.Cities.Where(w => w != 0);
-
             if (getciti.Count() != 0)
             {
                 qury = qury.Where(w => getciti.Contains(w.CityRef));
+            }            
+
+            var getState = commad.State.Where(w => w != 0).ToList();
+            if (getState.Count() != 0)
+            {
+                qury = qury.Where(w => getState.Contains((long)w.State));
+            }            
+
+            var getType = commad.Type.Where(w => w != 0).ToList();
+            if (getType.Count() != 0)
+            {
+                qury = qury.Where(w => getType.Contains((long)w.Type));
             }
 
             return

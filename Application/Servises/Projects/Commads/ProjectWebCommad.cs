@@ -21,14 +21,10 @@ namespace Application.Servises.Projects.Commads
             }
         }
 
-        public ProjectState StateDone { get; set; } = 0;
-
-        public ProjectState StateInprocess { get; set; } = 0;
-
-        public ProjectType ProjectTypePerformance { get; set; } = 0;
-
-        public ProjectType ProjectTypeSupervision { get; set; } = 0;
-
         public List<long> Cities { get; set; }
+
+        public List<long> Type { get; set; }
+
+        public List<long> State { get; set; }
      }
 }

@@ -38,7 +38,9 @@ namespace Application.Servises.Projects
             try
                 {
                 var getAllProject = await _unitOfWork.Project
-                  .GetProjects(new Domain.Interfaces.IRepository.Projects.Dtos.ProjectSerachCommad(parameters.PageNumber , parameters.PageSize ,  parameters.StateDone , parameters.StateInprocess , parameters.ProjectTypePerformance ,  parameters.ProjectTypeSupervision , parameters.Cities));
+                  .GetProjects(new Domain.Interfaces.IRepository.Projects.Dtos.ProjectSerachCommad(parameters.PageNumber , parameters.PageSize, parameters.Cities, parameters.Type, parameters.State));
+
+                getAllProject = getAllProject.OrderBy(o => o.Priority).ToList();
 
                 ProjectListDto = _mapper.Map<List<GetProjectDto>>(getAllProject);
 
@@ -51,7 +53,6 @@ namespace Application.Servises.Projects
                     if (getMedia != null)
                     {
                         newsCast.CoverMediaId = getMedia.Media.Id;
-
                         newsCast.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url;
                     }
                 }

@@ -24,7 +24,9 @@ namespace Domain.Enums.Project
         [Description("نظارت")]
         Supervision = 1,
         [Description("طراحی")]
-        Designing = 2
+        Designing = 2,
+        [Description("طراحی و نظارت")]
+        DesigningAndSupervision = 3
     }
 }
 
