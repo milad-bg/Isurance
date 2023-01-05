@@ -12,6 +12,8 @@ namespace Application.Servises.Files
 
     public interface IFileService
     {
+        public string FtpFileUpload(string fileName, MediaEntityType mediaType);
+
         Task<long?> UploadFileAsync(IFormFile file,FileUploadCommand command);
 
         Task<FileDto> DownloadFile(long id);

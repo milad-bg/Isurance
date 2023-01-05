@@ -113,6 +113,18 @@ namespace Application.Servises.Informaiton
                 var getAllAboutUs = await _unitOfWork.AboutUs.GetAllAboutUsAsync();
 
                 aboutUsListDto = _mapper.Map<List<GetAboutUsDto>>(getAllAboutUs);
+                var getAllMedias = await _unitOfWork.Media.GetMediasByEntityRefsAndEntityTypeAndMediaEntityType(aboutUsListDto.Select(s => s.Id).ToList(), EntityType.Project, MediaEntityType.CoverImage);
+
+                foreach (var aboutus in aboutUsListDto)
+                {
+                    var getMedia = getAllMedias.FirstOrDefault(f => f.EntityRef == aboutus.Id);
+
+                    if (getMedia != null)
+                    {
+                        aboutus.Persons.ForEach(s => s.CoverMediaId = getMedia.Id);
+                        aboutus.Persons.ForEach(s => s.CoverMediaUrl = "https://plansbox.ir/" + getMedia.Media.Url);
+                    }
+                }
             }
             catch (Exception exception)
             {

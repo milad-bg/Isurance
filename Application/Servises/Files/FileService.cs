@@ -2,6 +2,7 @@
 using Application.Servises.Files.Commads;
 using Application.Servises.Files.Dtos;
 using AutoMapper;
+using Domain.Enums.Flies;
 using Domain.Interfaces.IRepository.Files;
 using Domain.Interfaces.IUnitOfWork;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Application.Servises.Files
@@ -24,12 +26,43 @@ namespace Application.Servises.Files
 
         public FileService(IFileRepository fileRepository,
             IUnitOfWork unitOfWork, ILogger logger, IMapper mapper)
-        {                                    
+        {
             _fileRepository = fileRepository;
             _unitOfWork = unitOfWork;
             _logger = logger;
             _mapper = mapper;
-        }                   
+        }
+
+
+
+        private static readonly string password = "123456789aA#";
+        private static readonly string username = "FTP";
+        private static readonly string uploadDirectory = "/httpdocs/wwwroot";
+        private static readonly string ftpUrl = "ftp://ftp.plansbox.ir";
+
+        public string FtpFileUpload(string fileName, MediaEntityType mediaType)
+        {
+            string PureFileName = new FileInfo(fileName).Name;
+            string uploadUrl = string.Format("{0}{1}/{2}", ftpUrl, uploadDirectory, PureFileName);
+
+            FtpWebRequest req = (FtpWebRequest)WebRequest.Create(uploadUrl);
+            req.Proxy = null;
+            req.Method = WebRequestMethods.Ftp.UploadFile;
+            req.Credentials = new NetworkCredential(username, password);
+            req.UseBinary = true;
+            req.UsePassive = true;
+            byte[] data = File.ReadAllBytes(fileName);
+            req.ContentLength = data.Length;
+            
+            Stream stream = req.GetRequestStream();
+            stream.Write(data, 0, data.Length);
+            stream.Close();
+            
+            FtpWebResponse res = (FtpWebResponse)req.GetResponse();
+            return res.StatusDescription;
+        }
+
+
 
         public async Task<long?> UploadFileAsync(IFormFile file, FileUploadCommand command)
         {

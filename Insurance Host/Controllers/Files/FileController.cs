@@ -25,6 +25,18 @@ namespace Insurance_Host.Controllers.Files
             _environment = environment;
         }
 
+        [HttpPost("FtpUpload")]
+        public IActionResult FtpFileUpload([FromBody] FtpFileUploadCommand ftpFile)
+        {
+            var result = _fileService.FtpFileUpload(ftpFile.FileName, ftpFile.MediaType);
+
+            if (result == null)
+                BadReq("فایل اضافه نشد");
+
+            return OkResult("فایل با موفقیت اضافه شد", result);
+        }
+
+
         [HttpPost("Upload")]
         public async Task<IActionResult> UploadFileAsync(IFormFile file, [FromForm] FileUploadCommand command)
         {
